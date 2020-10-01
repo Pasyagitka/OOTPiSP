@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.Versioning;
 //V13. Создать класс Airline: Пункт назначения, Номер рейса, Тип самолета, Время вылета, Дни недели. 
 //Свойства и конструкторы должны обеспечивать проверку корректности.
 //Создать массив объектов.Вывести:
@@ -41,11 +42,22 @@ namespace Lab03
             DaysOfWeek = daysofweek;
         }
 
-        public void FlightInfoByDestination() {
+        public void FlightInfo() {
             Console.WriteLine($"Flight number: {FlightNumber}, to: {Destination}, aircraft type: {AircraftType}, departure time: {DepartureTime}, day: {DaysOfWeek}");
         }
-        public void FlightInfoByDayOfWeek() {
-            Console.WriteLine($"Flight number: {FlightNumber}, to: {Destination}, aircraft type: {AircraftType}, departure time: {DepartureTime}, day: {DaysOfWeek}");
+
+        public static void FlightInfoByDestination(Airline[] airlinesarray, string destination) //почему статик?
+        {
+            for (int i = 0; i < airlinesarray.Length; i++)
+                if (airlinesarray[i].Destination == destination)
+                    Console.WriteLine($"Flight number: {airlinesarray[i].FlightNumber}, to: {airlinesarray[i].Destination}, aircraft type: {airlinesarray[i].AircraftType}, departure time: {airlinesarray[i].DepartureTime}, day: {airlinesarray[i].DaysOfWeek}");
+        }
+
+        public static void FlightInfoByDayOfWeek(Airline[] airlinesarray, string daysofweek)
+        {
+            for (int i = 0; i < airlinesarray.Length; i++)
+                if (airlinesarray[i].DaysOfWeek == daysofweek)
+                    Console.WriteLine($"Flight number: {airlinesarray[i].FlightNumber}, to: {airlinesarray[i].Destination}, aircraft type: {airlinesarray[i].AircraftType}, departure time: {airlinesarray[i].DepartureTime}, day: {airlinesarray[i].DaysOfWeek}");
         }
     }
     class Program
@@ -64,21 +76,10 @@ namespace Lab03
             Airline Airline11 = new Airline("LUANDA", "n234ax");
             Airline Airline12 = new Airline("CHICAGO", "tc-nbz", "Boeing 737-823");
 
+            Airline[] AirlinesArray = new Airline[] { Airline1, Airline2, Airline3, Airline4, Airline5, Airline6, Airline7, Airline8, Airline9, Airline10, Airline11, Airline12 };
 
-            Airline1.FlightInfoByDestination();
-            Airline2.FlightInfoByDestination();
-            Airline3.FlightInfoByDestination();
-            Airline4.FlightInfoByDestination();
-            Airline5.FlightInfoByDestination();
-            Airline6.FlightInfoByDestination();
-            Airline7.FlightInfoByDestination();
-            Airline8.FlightInfoByDestination();
-            Airline9.FlightInfoByDestination();
-            Airline10.FlightInfoByDestination();
-            Airline11.FlightInfoByDestination();
-            Airline12.FlightInfoByDestination();
-        
-
+            Airline.FlightInfoByDestination(AirlinesArray, "LYON");
+            Airline.FlightInfoByDayOfWeek(AirlinesArray, "Tue");
         }
        
     }
