@@ -171,29 +171,28 @@ namespace Lab03
             Airline.FlightInfoByDestination(AirlinesArray, "LYON");
             Airline.FlightInfoByDayOfWeek(AirlinesArray, "Tue");
 
-  
-            //Console.WriteLine("____");
-            //for (int i = 0; i < AirlinesArray.Length; i++)
-            //{
-            //    AirlinesArray[i].FlightInfo();
-            //}
-            Console.WriteLine("____");
+            Console.WriteLine("__________________________");
             Airline10.FlightInfo();
             //Airline10.DaysOfWeekGetSet = "Monday";
             Airline10.FlightNumberGetSet = 9999;
-            //Airline10.eDestinationGetSet = "minsk";
+            //Airline10.DestinationGetSet = "minsk";
             Airline10.FlightInfo();
 
             int flnumber = Airline7.FlightNumberGetSet;
             int number = 9999999;
-            int result;
-            Airline7.Parameters(ref flnumber, ref number, out result);
+            Airline7.Parameters(ref flnumber, ref number, out int result);
+            Console.WriteLine(result);
 
             Airline.ShowNumberOfObjects();
             Console.WriteLine(Airline9.Equals(Airline8));
             Console.WriteLine(Airline9.Equals(Airline10));
-
             Console.WriteLine(Airline4);
+            Console.WriteLine(Airline6.GetType());
+
+
+            var Anon = new { Destination = "TALLIN", FlightNumber = 1111, AircraftType = "Airbus A320-251N", DepartureTime = new DateTime(2020, 10, 6, 20, 05, 00), DaysOfWeek = "Monday" };
+            Console.WriteLine($"Flight number: {Anon.FlightNumber}, to: {Anon.Destination}, aircraft type: {Anon.AircraftType}, departure time: {Anon.DepartureTime}, day: {Anon.DaysOfWeek}");
+            //свойства анонимных типов доступны только для чтения; только в инициализаторе
         }
     }
 }
