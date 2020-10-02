@@ -1,86 +1,199 @@
 ﻿using System;
-using System.Runtime.Versioning;
-//V13. Создать класс Airline: Пункт назначения, Номер рейса, Тип самолета, Время вылета, Дни недели. 
-//Свойства и конструкторы должны обеспечивать проверку корректности.
-//Создать массив объектов.Вывести:
-//a) список рейсов для заданного пункта назначения;
-//b) список рейсов для заданного дня недели;
+using System.Net.WebSockets;
+using System.Runtime.ExceptionServices;
+
 namespace Lab03
 {
-    public class Airline
+    public partial class Airline
     {
-        public string Destination;
-        public string FlightNumber;
-        public string AircraftType;
-        public DateTime DepartureTime;
-        public string DaysOfWeek;
+        string Destination;
+        int FlightNumber;
+        string AircraftType;
+        DateTime DepartureTime;
+        string DaysOfWeek;
+        public static int NumberOfObjects = 0;
 
+        public readonly int ID;
+        const string DefaultDaysOfWeek = "Unknown";
+        const int DefaultFlightNumber = 0;
+
+        public string DestinationGetSet
+        {
+            get { return Destination; }
+            private set
+            {
+                if (Char.IsLower(value[0]))
+                    Destination = value.ToUpper();
+            }
+        }
+
+        public int FlightNumberGetSet
+        {
+            get { return FlightNumber; }
+            set
+            {
+                if (value >= 0)
+                {
+                    FlightNumber = value;
+                }
+            }
+        }
+
+        public string DaysOfWeekGetSet
+        {
+            get { return DaysOfWeek; }
+            set
+            {
+                if (value == "Mon" || value == "Tue" || value == "Wed" || value == "Thu" || value == "Fri" || value == "Sat" || value == "Sun")
+                    DaysOfWeek = value;
+            }
+        }
 
         public Airline()
-        { 
-            Destination = "";
-            FlightNumber = "";
-            AircraftType = "";
+        {
+            Destination = "Unknown";
+            FlightNumber = 0;
+            AircraftType = "Unknown";
             DepartureTime = new DateTime(2020, 01, 01, 00, 00, 00);
-            DaysOfWeek = "";
+            DaysOfWeek = DefaultDaysOfWeek;
+            ID = GetHashCode();
+            NumberOfObjects++;
         }
 
-        public Airline(string destination, string flightnumber, string aircrafttype, DateTime departureTime, string daysofweek)
+        public Airline(string destination, int flightnumber, string aircrafttype, DateTime departureTime, string daysofweek)
         {
             Destination = destination;
-            FlightNumber = flightnumber;
+            if (FlightNumber >= 0) FlightNumber = flightnumber;
+            else FlightNumber = DefaultFlightNumber;
             AircraftType = aircrafttype;
             DepartureTime = departureTime;
-            DaysOfWeek = daysofweek;
+            if (daysofweek == "Mon" || daysofweek == "Tue" || daysofweek == "Wed" || daysofweek == "Thu" || daysofweek == "Fri" || daysofweek == "Sat" || daysofweek == "Sun") DaysOfWeek = daysofweek;
+            else DaysOfWeek = DefaultDaysOfWeek;
+            ID = GetHashCode();
+            NumberOfObjects++;
         }
 
-        public Airline(string destination="OTTAWA", string flightnumber="a1m423", string aircrafttype="Boeing 737-8kn", string daysofweek = "Sun") {
+        public Airline(int flightnumber, string destination = "OTTAWA", string aircrafttype = "Boeing 737-8kn", string daysofweek = "Sun") : this(flightnumber)
+        {
             Destination = destination;
-            FlightNumber = flightnumber;
             AircraftType = aircrafttype;
             DepartureTime = default;
-            DaysOfWeek = daysofweek;
+            if (daysofweek == "Mon" || daysofweek == "Tue" || daysofweek == "Wed" || daysofweek == "Thu" || daysofweek == "Fri" || daysofweek == "Sat" || daysofweek == "Sun") DaysOfWeek = daysofweek;
+            else DaysOfWeek = DefaultDaysOfWeek;
+            ID = GetHashCode();
+            NumberOfObjects++;
         }
 
-        public void FlightInfo() {
-            Console.WriteLine($"Flight number: {FlightNumber}, to: {Destination}, aircraft type: {AircraftType}, departure time: {DepartureTime}, day: {DaysOfWeek}");
+        private Airline(int flightnumber)
+        {
+            if (flightnumber >= 0) this.FlightNumber = flightnumber;
+            else this.FlightNumber = DefaultFlightNumber;
+            Console.WriteLine("Private constructor");
         }
 
-        public static void FlightInfoByDestination(Airline[] airlinesarray, string destination) //почему статик?
+        static Airline()
+        {
+            Console.WriteLine("Static constructor");
+        }
+    }
+
+
+
+    public partial class Airline {
+
+        public void FlightInfo()
+        {
+            Console.WriteLine($"Flight number: {FlightNumber}, to: {Destination}, aircraft type: {AircraftType}, departure time: {DepartureTime}, day: {DaysOfWeek}, ID: {ID}");
+        }
+
+        public void Parameters(ref int flightnumber, ref int number, out int result)
+        {
+            flightnumber++;
+            number++;
+            result = flightnumber + number;
+        }
+
+        public static void ShowNumberOfObjects()
+        {
+            Console.WriteLine($"NumberOfObjects: {NumberOfObjects}");
+        }
+
+        public static void FlightInfoByDestination(Airline[] airlinesarray, string destination)
         {
             for (int i = 0; i < airlinesarray.Length; i++)
                 if (airlinesarray[i].Destination == destination)
-                    Console.WriteLine($"Flight number: {airlinesarray[i].FlightNumber}, to: {airlinesarray[i].Destination}, aircraft type: {airlinesarray[i].AircraftType}, departure time: {airlinesarray[i].DepartureTime}, day: {airlinesarray[i].DaysOfWeek}");
+                    Console.WriteLine($"Flight number: {airlinesarray[i].FlightNumber}, to: {airlinesarray[i].Destination}, aircraft type: {airlinesarray[i].AircraftType}, departure time: {airlinesarray[i].DepartureTime}, day: {airlinesarray[i].DaysOfWeek},  ID: {airlinesarray[i].ID}");
         }
 
         public static void FlightInfoByDayOfWeek(Airline[] airlinesarray, string daysofweek)
         {
             for (int i = 0; i < airlinesarray.Length; i++)
                 if (airlinesarray[i].DaysOfWeek == daysofweek)
-                    Console.WriteLine($"Flight number: {airlinesarray[i].FlightNumber}, to: {airlinesarray[i].Destination}, aircraft type: {airlinesarray[i].AircraftType}, departure time: {airlinesarray[i].DepartureTime}, day: {airlinesarray[i].DaysOfWeek}");
+                    Console.WriteLine($"Flight number: {airlinesarray[i].FlightNumber}, to: {airlinesarray[i].Destination}, aircraft type: {airlinesarray[i].AircraftType}, departure time: {airlinesarray[i].DepartureTime}, day: {airlinesarray[i].DaysOfWeek},  ID: {airlinesarray[i].ID}");
+        }
+
+        public override bool Equals(object obj)
+        {
+            Airline airline1 = (Airline)obj;
+            return (this.Destination == airline1.Destination && this.DepartureTime == airline1.DepartureTime);
+        }
+
+        public override int GetHashCode()
+        {
+            return Math.Abs(Destination.GetHashCode() + FlightNumber.GetHashCode());
+        }
+
+        public override string ToString()
+        {
+            return "Flight number: " + FlightNumber + ", to: " + Destination + ", aircraft type: " + AircraftType + ", departure time: " + DepartureTime + ", day: " + DaysOfWeek + ", ID: " + ID;
         }
     }
     class Program
     {
-        static void Main(string[] args) {
+        static void Main(string[] args)
+        {
+            Console.WriteLine(Airline.NumberOfObjects);
             Airline Airline1 = new Airline();
-            Airline Airline2 = new Airline("MIAMI", "n743ax", "Boeing 767-232", "Tue");
-            Airline Airline3 = new Airline("LEIPZIG", "54m-2d", "Airbus A320-251N", "Tue");
-            Airline Airline4 = new Airline("HONG KONG", "q123d5", "Boeing 737-8kn", new DateTime(2020, 10, 4, 00, 14, 00), "Fri");
-            Airline Airline5 = new Airline("HANNOVER", "r99230", "Airbus A320-251N", new DateTime(2020, 10, 2, 7, 34, 00), "Wed");
-            Airline Airline6 = new Airline("TEL AVIV", "p-129e3", "Boeing 737-8kn", new DateTime(2020, 10, 3, 15, 11, 00), "Thu");
-            Airline Airline7 = new Airline("BRISTOL", "12d999", "Airbus A320-251N", new DateTime(2020, 10, 4, 12, 25, 00), "Fri");
-            Airline Airline8 = new Airline("LYON", "5m3u2", "Boeing 767-232", new DateTime(2020, 10, 5, 5, 20, 00), "Sat");
-            Airline Airline9 = new Airline("CASABLANCA", "a4-r23", "Boeing 737-8kn", new DateTime(2020, 10, 6, 20, 05, 00), "Sun");
-            Airline Airline10 = new Airline("IBIZA", "a6-fec", "Boeing 737-8kn", new DateTime(2020, 9, 30, 9, 18, 00), "Mon");
-            Airline Airline11 = new Airline("LUANDA", "n234ax");
-            Airline Airline12 = new Airline("CHICAGO", "tc-nbz", "Boeing 737-823");
+            Airline Airline2 = new Airline( -1435, "MIAMI", "Boeing 767-232", "Tue");
+            Airline Airline3 = new Airline( 12498,"LEIPZIG", "Airbus A320-251N", "aaaaaaaaa");
+            Airline Airline4 = new Airline("HONG KONG", 29589, "Boeing 737-8kn", new DateTime(2020, 10, 4, 00, 14, 00), "Fri");
+            Airline Airline5 = new Airline("HANNOVER", -3841, "Airbus A320-251N", new DateTime(2020, 10, 2, 7, 34, 00), "Wed");
+            Airline Airline6 = new Airline("TEL AVIV", 30491, "Boeing 737-8kn", new DateTime(2020, 10, 3, 15, 11, 00), "Thu");
+            Airline Airline7 = new Airline("LONDON", 30491, "Boeing 737-8kn", new DateTime(2020, 10, 3, 15, 11, 00), "Thu");
+            Airline Airline8 = new Airline("LYON", 83812, "Boeing 767-232", new DateTime(2020, 10, 5, 5, 20, 00), "Sat");
+            Airline Airline9 = new Airline("CASABLANCA", 43589, "Boeing 737-8kn", new DateTime(2020, 10, 6, 20, 05, 00), "Sun");
+            Airline Airline10 = new Airline("CASABLANCA", 4989, "Boeing 737-8kn", new DateTime(2020, 10, 6, 20, 05, 00), "Sun");
+            Airline Airline11 = new Airline( 325, "LUANDA");
+            Airline Airline12 = new Airline(23848,"CHICAGO",  "Boeing 737-823");
 
             Airline[] AirlinesArray = new Airline[] { Airline1, Airline2, Airline3, Airline4, Airline5, Airline6, Airline7, Airline8, Airline9, Airline10, Airline11, Airline12 };
 
             Airline.FlightInfoByDestination(AirlinesArray, "LYON");
             Airline.FlightInfoByDayOfWeek(AirlinesArray, "Tue");
+
+  
+            //Console.WriteLine("____");
+            //for (int i = 0; i < AirlinesArray.Length; i++)
+            //{
+            //    AirlinesArray[i].FlightInfo();
+            //}
+            Console.WriteLine("____");
+            Airline10.FlightInfo();
+            //Airline10.DaysOfWeekGetSet = "Monday";
+            Airline10.FlightNumberGetSet = 9999;
+            //Airline10.eDestinationGetSet = "minsk";
+            Airline10.FlightInfo();
+
+            int flnumber = Airline7.FlightNumberGetSet;
+            int number = 9999999;
+            int result;
+            Airline7.Parameters(ref flnumber, ref number, out result);
+
+            Airline.ShowNumberOfObjects();
+            Console.WriteLine(Airline9.Equals(Airline8));
+            Console.WriteLine(Airline9.Equals(Airline10));
+
+            Console.WriteLine(Airline4);
         }
-       
     }
 }
