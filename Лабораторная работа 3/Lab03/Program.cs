@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Net.WebSockets;
-using System.Runtime.ExceptionServices;
 
 namespace Lab03
 {
@@ -12,12 +10,11 @@ namespace Lab03
         DateTime DepartureTime;
         string DaysOfWeek;
         public static int NumberOfObjects = 0;
-
         public readonly int ID;
         const string DefaultDaysOfWeek = "Unknown";
         const int DefaultFlightNumber = 0;
 
-        public string DestinationGetSet
+        public string m_Destination
         {
             get { return Destination; }
             private set
@@ -27,7 +24,7 @@ namespace Lab03
             }
         }
 
-        public int FlightNumberGetSet
+        public int m_FlightNumber
         {
             get { return FlightNumber; }
             set
@@ -39,7 +36,7 @@ namespace Lab03
             }
         }
 
-        public string DaysOfWeekGetSet
+        public string m_DaysOfWeek
         {
             get { return DaysOfWeek; }
             set
@@ -68,7 +65,7 @@ namespace Lab03
             AircraftType = aircrafttype;
             DepartureTime = departureTime;
             if (daysofweek == "Mon" || daysofweek == "Tue" || daysofweek == "Wed" || daysofweek == "Thu" || daysofweek == "Fri" || daysofweek == "Sat" || daysofweek == "Sun") DaysOfWeek = daysofweek;
-            else DaysOfWeek = DefaultDaysOfWeek;
+                else DaysOfWeek = DefaultDaysOfWeek;
             ID = GetHashCode();
             NumberOfObjects++;
         }
@@ -79,7 +76,7 @@ namespace Lab03
             AircraftType = aircrafttype;
             DepartureTime = default;
             if (daysofweek == "Mon" || daysofweek == "Tue" || daysofweek == "Wed" || daysofweek == "Thu" || daysofweek == "Fri" || daysofweek == "Sat" || daysofweek == "Sun") DaysOfWeek = daysofweek;
-            else DaysOfWeek = DefaultDaysOfWeek;
+                else DaysOfWeek = DefaultDaysOfWeek;
             ID = GetHashCode();
             NumberOfObjects++;
         }
@@ -87,7 +84,7 @@ namespace Lab03
         private Airline(int flightnumber)
         {
             if (flightnumber >= 0) this.FlightNumber = flightnumber;
-            else this.FlightNumber = DefaultFlightNumber;
+                else this.FlightNumber = DefaultFlightNumber;
             Console.WriteLine("Private constructor");
         }
 
@@ -163,7 +160,7 @@ namespace Lab03
             Airline Airline8 = new Airline("LYON", 83812, "Boeing 767-232", new DateTime(2020, 10, 5, 5, 20, 00), "Sat");
             Airline Airline9 = new Airline("CASABLANCA", 43589, "Boeing 737-8kn", new DateTime(2020, 10, 6, 20, 05, 00), "Sun");
             Airline Airline10 = new Airline("CASABLANCA", 4989, "Boeing 737-8kn", new DateTime(2020, 10, 6, 20, 05, 00), "Sun");
-            Airline Airline11 = new Airline( 325, "LUANDA");
+            Airline Airline11 = new Airline(flightnumber: 325, daysofweek: "Fri");
             Airline Airline12 = new Airline(23848,"CHICAGO",  "Boeing 737-823");
 
             Airline[] AirlinesArray = new Airline[] { Airline1, Airline2, Airline3, Airline4, Airline5, Airline6, Airline7, Airline8, Airline9, Airline10, Airline11, Airline12 };
@@ -174,11 +171,11 @@ namespace Lab03
             Console.WriteLine("__________________________");
             Airline10.FlightInfo();
             //Airline10.DaysOfWeekGetSet = "Monday";
-            Airline10.FlightNumberGetSet = 9999;
+            Airline10.m_FlightNumber = 9999;
             //Airline10.DestinationGetSet = "minsk";
             Airline10.FlightInfo();
 
-            int flnumber = Airline7.FlightNumberGetSet;
+            int flnumber = Airline7.m_FlightNumber;
             int number = 9999999;
             Airline7.Parameters(ref flnumber, ref number, out int result);
             Console.WriteLine(result);
@@ -187,6 +184,7 @@ namespace Lab03
             Console.WriteLine(Airline9.Equals(Airline8));
             Console.WriteLine(Airline9.Equals(Airline10));
             Console.WriteLine(Airline4);
+            Console.WriteLine(Airline11);
             Console.WriteLine(Airline6.GetType());
 
 
