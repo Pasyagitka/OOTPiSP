@@ -1,61 +1,38 @@
 ﻿using System;
-//Класс - стек Stack. Дополнительно перегрузить следующие 
-//операции: + -добавить элемент в стек; -- -извлечь элемент из 
-//стека; true - проверка, пустой ли стек; > -копирование одного
-//стека в другой с сортировкой в возрастающем порядке.
-//Вариант 13 Методы расширения:
-//1) Подсчет количества предложений
-//2) Определение среднего элемента стека
 
 namespace Lab04
 {
-
-    class Stack
-    {
-        private string[] Elements;
-        private int CurrentNumberOfElements;
-        const int N = 20;
-
-        public Stack()
-        {
-            Elements = new string[N];
-        }
-
-        public Stack(int StackSize)
-        {
-            Elements = new string[StackSize];
-        }
-
-        public static bool operator true(Stack elements)
-        {
-            return elements.CurrentNumberOfElements == 0;
-        }
-        public static bool operator false(Stack elements)
-        {
-            return elements.CurrentNumberOfElements != 0;
-        }
-
-        //public static Stack operator +(Stack[] elements, string NewElement)
-        //{
-        //    if (elements.CurrentNumberOfElements == elements.N)
-        //        throw new InvalidOperationException("Stack overflow");
-        //    elements[elements.Length++] = NewElement;
-        //}
-       
-        //public T Pop()
-        //{
-        //    if (IsEmpty())
-        //        throw new InvalidOperationException("Stack is empty");
-        //    T Element = Elements[--CurrentNumberOfElements];
-        //    Elements[CurrentNumberOfElements] = default(T); // сбрасываем ссылку
-        //    return Element;
-        //}
-
-        //public static 
-    }
-
     class Program
     {
-        
+        private static void Main(string[] args)
+        {
+            var Stack1 = new Stack<string>();
+            Stack1.Push("Lora"); Stack1.Push("Dale"); Stack1.Push("Jack"); Stack1.Push("Anna"); Stack1.Push("Yodi"); Stack1.Push("Lisa");     
+            Stack1 = Stack1 + "Voh";
+            Console.WriteLine("Current size of stack1 = {0}", Stack1.StackSize());
+            Stack1.ShowStack();
+
+            var Stack2 = new Stack<int>();
+            Stack2.Push(2);  Stack2.Push(1);  Stack2.Push(5);  Stack2.Push(3);
+            
+
+            Console.WriteLine("Copy");
+            Console.WriteLine("Стек1 до:");
+            Stack1.ShowStack();
+            var Stack3 = new Stack<string>();
+            Stack3 = Stack1 > Stack3;
+            Console.WriteLine("Стек3:");
+            Stack3.ShowStack();
+            Console.WriteLine("Стек1:");
+            Stack1.ShowStack();
+            Console.WriteLine("Стек2:");
+            Stack2.ShowStack();
+            var Stack4= new Stack<int>();
+            Stack4 = Stack2 > Stack4;
+            Console.WriteLine("Стек4:");
+            Stack4.ShowStack();
+
+            //Average(Stack4);
+        }
     }
 }
