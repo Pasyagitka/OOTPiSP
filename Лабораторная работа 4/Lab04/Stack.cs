@@ -1,4 +1,8 @@
-﻿using System;
+﻿using Microsoft.Win32.SafeHandles;
+using System;
+using System.Collections.Immutable;
+using System.Linq.Expressions;
+using System.Runtime.InteropServices;
 //Класс - стек Stack. Дополнительно перегрузить следующие 
 //операции: + -добавить элемент в стек; -- -извлечь элемент из 
 //стека; true - проверка, пустой ли стек; > -копирование одного
@@ -7,19 +11,25 @@
 //1) Подсчет количества предложений
 //2) Определение среднего элемента стека
 
+
+//индексатор, тестирование
 namespace Lab04
 {
 
-    public class Stack<T>
+    public class Stack
     {
-        private T[] Elements;
-        private int CurrentSize;
-        private const int StackMaxSize = 30;
+        public int[] Elements;
+        public int CurrentSize;
+        const int StackMaxSize = 30;
+        public Owner owner;
+        public Date DateOfCreation;
 
         public Stack()
         {
-            Elements = new T[StackMaxSize];
-            CurrentSize = 0;
+            this.Elements = new int[StackMaxSize];
+            this.owner = new Owner(1029, "Lizaveta", "BSTU");
+            this.DateOfCreation = new Date();
+            this.CurrentSize = 0;
         }
 
         public int StackSize()
@@ -29,13 +39,15 @@ namespace Lab04
 
         public void ShowStack()
         {
+            Console.WriteLine("Создатель: {0}", this.owner);
             for (int i = 0; i < CurrentSize; i++)
             {
                 Console.WriteLine("Element N{0} is {1}", i + 1, Elements[i]);
             }
+            Console.WriteLine("Дата создания: {0}", this.DateOfCreation);
         }
 
-        public void Push(T element)
+        public void Push(int element)
         {
             if (CurrentSize == StackMaxSize)
                 throw new Exception("StackOverflow was thrown");
@@ -43,122 +55,101 @@ namespace Lab04
             CurrentSize++;
         }
 
-        public T Peek()
+        public int Peek()
         { // чтение главного элемента 
             if (StackSize() == 0)
                 throw new Exception("Stack is empty");
             return Elements[CurrentSize - 1];
         }
 
-        public T Pop()
+        public int Pop()
         {
             if (StackSize() == 0)
                 throw new Exception("Stack is empty");
-            T element = Elements[--CurrentSize];
-            Elements[CurrentSize] = default(T); // сбрасываем ссылку
+            int element = Elements[--CurrentSize];
+            Elements[CurrentSize] = default(int); // сбрасываем ссылку
             return element;
         }
 
         public void Clear()
         {
-            Elements = new T[StackMaxSize];
+            Elements = new int[StackMaxSize];
             CurrentSize = 0;
         }
 
-        //public int this[int index]  {
-        //    get { return this.Elements[index]; }
-        //    set {  this.Elements[index] = value; }
-        //}
+        public int this[int index]
+        {
+            get { return Elements[index]; }
+            set { Elements[index] = value; }
+        }
 
-        public static Stack<T> operator +(Stack<T> stack, T element)
+        public static Stack operator +(Stack stack, int element)
         {
             stack.Push(element);
             return stack;
         }
 
-        public static Stack<T> operator --(Stack<T> stack)
+        public static Stack operator --(Stack stack)
         {
             stack.Pop();
             return stack;
         }
 
-        public static bool operator true(Stack<T> stack)
+        public static bool operator true(Stack stack)
         {
             return stack.CurrentSize == 0;
         }
-        public static bool operator false(Stack<T> stack)
+        public static bool operator false(Stack stack)
         {
             return stack.CurrentSize != 0;
         }
 
-        public static Stack<T> operator <(Stack<T> a, Stack<T> b)
+        public static Stack operator <(Stack stack1, Stack stack2)
         {
-            if (a.CurrentSize < b.CurrentSize)
+            Stack result = new Stack();
+            while (stack1.CurrentSize != 0)
             {
-                return a;
+                result = result + stack1.Pop();
             }
-            else
+            while (stack2.CurrentSize != 0)
             {
-                return b;
+                result = result + stack2.Pop();
             }
+            result.Elements.Sort();
+            return result;
         }
-        public static Stack<T> operator >(Stack<T> stack1, Stack<T> stack2)
+        public static Stack operator >(Stack stack1, Stack stack2)
         {
-            Sort(stack1);
-            var buffer = stack1; //надо копирование чтоб не ссылалось
-            while (buffer.CurrentSize != 0)
-            {
-                stack2 += buffer.Pop();
-            }
-            return stack2;
+            return stack1;
         }
-        private static int Compare(string element1, string element2)
-        {
-            return (element1[0] > element2[0] || element1[0] == element2[0]) ? 1 : 0;
-        }
-        private static int Compare(int element1, int element2)
-        {
-            return (element1 > element2 || element1 == element2) ? 1 : 0;               
-        }
-        private static void Sort(Stack<T> stack)
-        {
-            dynamic element1;
-            dynamic element2;
-            for (int i = 0; i < stack.CurrentSize; i++)
-            {
-                for (int j = (stack.CurrentSize - 1); j >= (i + 1); j--)
-                {
-                    element1 = stack.Elements[j];
-                    element2 = stack.Elements[j - 1];
-                    if (Compare(element1, element2) == 1)
-                    {
-                        var temp = stack.Elements[j];
-                        stack.Elements[j] = stack.Elements[j - 1];
-                        stack.Elements[j - 1] = temp;
-                    }
-                }
-            }
-        }
-           
 
-        //public void Average()
-        //{
-        //   // не вывзываю
-        //    dynamic temp = this.Elements[0];
-        //    if (IsInteger(temp) == 1)
-        //    {
-        //        dynamic sum = 0;
-        //        int i;
-        //        for (i = 0; i < this.CurrentSize; i++)
-        //        {
-        //            sum += this.Elements[i];
-        //        }
-        //        sum /= i;
-        //        Console.WriteLine("sum = {0}", sum);
-        //    }
-        //    else Console.WriteLine("Невозможно найти средний элемент строки!");
-        //}
+        public class Owner
+        {
+            public int ID;
+            public string Name;
+            public string Organization;
 
+            public Owner(int id, string name, string organization)
+            {
+                this.ID = id;
+                this.Name = name;
+                this.Organization = organization;
+            }
+            public override string ToString()
+            {
+                return "ID: " + this.ID + ", Name: " + this.Name + ", Organization: " + this.Organization;
+            }
+        }
+
+        public class Date
+        {
+            DateTime currentdate =  DateTime.Now;
+
+            public override string ToString()
+            {
+                return currentdate.ToString();
+            }
+        }
 
     }
 }
