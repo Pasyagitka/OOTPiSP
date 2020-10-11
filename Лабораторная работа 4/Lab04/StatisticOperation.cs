@@ -1,22 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.Data;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
 
 namespace Lab04
 {
-    static class StatisticOperation
+    public static class StatisticOperation
     {
         public static int StackSum(Stack stack)
         {
             int stacksum = 0;
-            //for (int i = 0; i < stack.CurrentSize; i++)
-            //{
-            //    stacksum += stack.Elements[i]; 
-            //}
             foreach (int e in stack.Elements){
                 stacksum += e;
             }
@@ -24,20 +15,22 @@ namespace Lab04
         }
         public static int DeltaBetweenMinAndMax(Stack stack)
         {
-            int[] temp = stack.Elements;
+            int[] temp = new int[stack.CurrentSize];
+            for (int i = 0; i < stack.CurrentSize; i++)
+            {
+                temp[i] = stack.Elements[i];
+            }
             return Math.Abs(temp.Max()) - Math.Abs(temp.Min());
         }
 
         public static int CountElements(Stack stack)
         {
-            int i = 0;
-            for (; i < stack.CurrentSize; i++) { }
-            return i;
+            return stack.CurrentSize;
         }
 
-        public static int Average(Stack stack)
-        {
-            return StackSum(stack)/stack.CurrentSize;
+        public static float Average(Stack stack)
+        {     
+            return (float)StackSum(stack) / (float)stack.CurrentSize;
         }
 
         //str.split([separator[, limit]])
