@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{ECC5D2D9-98C9-416E-9522-5FB5B2E12DEB}</ProjectGuid>
+    <ProjectGuid>{58526C80-B6E0-458A-B2D7-AA88CABBAE04}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>Lab05</RootNamespace>
     <AssemblyName>Lab05</AssemblyName>
@@ -36,6 +36,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Animal.cs" />
+    <Compile Include="Bird.cs" />
+    <Compile Include="Fish.cs" />
+    <Compile Include="Mammal.cs" />
     <Compile Include="Program.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
