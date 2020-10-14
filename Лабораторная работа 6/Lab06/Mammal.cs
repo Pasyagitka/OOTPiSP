@@ -4,10 +4,10 @@ namespace Lab06
 {
     abstract class Mammal : Animal
     {
-        public Mammal(string name, int year, string color = "White", string feedingstrategy = "omnivore") : base(name, year)
+        public Mammal(string name, int year, int weight = 40) : base(name, year)
         {
-            this.color = color;
-            this.feedingStrategy = feedingstrategy;
+            this.weight = weight;
+            this.feedingStrategy = feedingStrategies.omnivore;
         }
 
         public override void Move()
@@ -17,7 +17,7 @@ namespace Lab06
 
         public override string ToString()
         {
-            return "Млекопитающее: Name: " + this.name + ", Year: " + this.dateOfBirth + ", Color: " + this.color + ", Feeding Strategy: " + this.feedingStrategy;
+            return "Млекопитающее: Name: " + this.name + ", Year: " + this.dateOfBirth + ", Weight: " + this.weight + ", Feeding Strategy: " + this.feedingStrategy;
         }
     }
 }

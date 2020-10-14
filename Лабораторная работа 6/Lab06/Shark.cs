@@ -4,10 +4,10 @@ namespace Lab06
 {
     class Shark : Fish, IVitalActivity
     {
-        public Shark(string name, int year, string color = "Grey", string feedingstrategy = "carnivore") : base(name, year)
+        public Shark(string name, int year, int weight = 50) : base(name, year)
         {
-            this.color = color;
-            this.feedingStrategy = feedingstrategy;
+            this.weight = 50;
+            this.feedingStrategy = feedingStrategies.carnivore;
         }
 
         public override void Move()
@@ -17,7 +17,7 @@ namespace Lab06
 
         public override string ToString()
         {
-            return "Акула: Name: " + name + ", Year: " + dateOfBirth + ", Color: " + color + ", Feeding Strategy: " + feedingStrategy;
+            return "Акула: Name: " + name + ", Year: " + dateOfBirth + ", Weight: " + weight + ", Feeding Strategy: " + feedingStrategy;
         }
 
         void IVitalActivity.Eat()

@@ -38,17 +38,20 @@
   <ItemGroup>
     <Compile Include="Animal.cs" />
     <Compile Include="Bird.cs" />
+    <Compile Include="Controller.cs" />
     <Compile Include="Crocodile.cs" />
     <Compile Include="Fish.cs" />
     <Compile Include="IVitalActivity.cs" />
     <Compile Include="Lion.cs" />
     <Compile Include="Mammal.cs" />
     <Compile Include="Owl.cs" />
+    <Compile Include="OwlStruct.cs" />
     <Compile Include="Parrot.cs" />
     <Compile Include="Printer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Shark.cs" />
     <Compile Include="Tiger.cs" />
+    <Compile Include="Zoo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

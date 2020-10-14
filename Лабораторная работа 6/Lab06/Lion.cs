@@ -4,10 +4,10 @@ namespace Lab06
 {
     class Lion : Mammal
     {
-        public Lion(string name, int year, string color = "Yellow", string feedingstrategy = "carnivore") : base(name, year)
+        public Lion(string name, int year, int weight = 55) : base(name, year)
         {
-            this.color = color;
-            this.feedingStrategy = feedingstrategy;
+            this.weight = weight;
+            this.feedingStrategy = feedingStrategies.carnivore;
         }
 
         public override void Move()
@@ -17,7 +17,7 @@ namespace Lab06
 
         public override string ToString()
         {
-            return "Лев: Name: " + this.name + ", Year: " + this.dateOfBirth + ", Color: " + this.color + ", Feeding Strategy: " + this.feedingStrategy;
+            return "Лев: Name: " + this.name + ", Year: " + this.dateOfBirth + ", Weight: " + this.weight + ", Feeding Strategy: " + this.feedingStrategy;
         }
     }
 }

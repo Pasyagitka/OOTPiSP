@@ -6,24 +6,25 @@ namespace Lab06
     {
         private static void Main(string[] args)
         {
-            Animal crocodile1 = new Crocodile("crocodile1", 2026);
+            Animal crocodile1 = new Crocodile("crocodile", 2026);
             Console.WriteLine(crocodile1); crocodile1.Move();
 
-            Lion lion1 = new Lion("lion1", 2010);
+            Lion lion1 = new Lion("lion", 2010);
+            Lion lion2 = new Lion("lion", 2017);
             Console.WriteLine(lion1); lion1.Move();
-            Tiger tiger1 = new Tiger("tiger1", 2001);
+            Tiger tiger1 = new Tiger("tiger", 2001);
             Console.WriteLine(tiger1); tiger1.Move();
 
-            Shark shark1 = new Shark("shark1", 2014);
+            Shark shark1 = new Shark("shark", 2014);
             Console.WriteLine(shark1); shark1.Move();
             ((IVitalActivity)shark1).Eat();
             shark1.VitalActivity();
             ((IVitalActivity)shark1).VitalActivity();
 
-            Owl owl1 = new Owl("owl1", 2003);
+            Owl owl1 = new Owl("owl", 2003);
             owl1.Move();
             Console.WriteLine(owl1);
-            Parrot parrot1 = new Parrot("Гоша", 2020);
+            Parrot parrot1 = new Parrot("parrot", 2020);
             parrot1.Move();
             Console.WriteLine(parrot1);
 
@@ -34,6 +35,19 @@ namespace Lab06
             {
                 a.iAmPrinting(animals[i]);
             }
+
+            Zoo zoo = new Zoo();
+            zoo.AddToZoo(crocodile1);
+            zoo.AddToZoo(lion1);
+            zoo.AddToZoo(lion2);
+            zoo.AddToZoo(tiger1);
+            zoo.AddToZoo(shark1);
+            zoo.AddToZoo(owl1);
+            zoo.AddToZoo(parrot1);
+            zoo.ShowZoo();
+            Controller.AverageWeight(zoo, "lion");
+            Console.WriteLine("Количество хищных птиц в зоопарке: {0} ", Controller.PredatoryBirds(zoo));
+            Controller.SortByYear(zoo);
         }
     }
 }

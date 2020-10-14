@@ -4,10 +4,10 @@ namespace Lab06
 {
     abstract class Fish : Animal, IVitalActivity
     {
-        public Fish(string name, int year, string color = "Blue", string feedingstrategy = "omnivore") : base(name, year)
+        public Fish(string name, int year, int weight = 1) : base(name, year)
         {
-            this.color = color;
-            this.feedingStrategy = feedingstrategy;
+            this.weight = weight;
+            this.feedingStrategy = feedingStrategies.omnivore;
         }
 
         public override void Move()
@@ -27,7 +27,7 @@ namespace Lab06
 
         public override string ToString()
         {
-            return "Рыба: Name: " + name + ", Year: " + dateOfBirth + ", Color: " + color + ", Feeding Strategy: " + feedingStrategy;
+            return "Рыба: Name: " + name + ", Year: " + dateOfBirth + ", Weight: " + weight + ", Feeding Strategy: " + feedingStrategy;
         }
 
         public abstract void VitalActivity();

@@ -4,10 +4,10 @@ namespace Lab06
 {
     class Bird : Animal
     {
-        public Bird(string name, int year, string color = "Yellow", string feedingstrategy = "omnivore") : base(name, year)
+        public Bird(string name, int year, int weight = 1) : base(name, year)
         {
-            this.color = color;
-            this.feedingStrategy = feedingstrategy;
+            this.weight = weight;
+            this.feedingStrategy = feedingStrategies.omnivore;
         }
 
         public override void Move()
@@ -17,7 +17,7 @@ namespace Lab06
 
         public override string ToString()
         {
-            return "Name: " + this.name + ", Year: " + this.dateOfBirth + ", Color: " + this.color + ", Feeding Strategy: " + this.feedingStrategy;
+            return "Name: " + this.name + ", Year: " + this.dateOfBirth + ", Weight: " + this.weight + ", Feeding Strategy: " + this.feedingStrategy;
         }
     }
 }

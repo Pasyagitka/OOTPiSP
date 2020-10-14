@@ -2,19 +2,20 @@
 
 namespace Lab06
 {
-    abstract class Animal
+    public abstract class Animal 
     {
         public string name;
         public int dateOfBirth;
-        public string color;
-        public string feedingStrategy;      //carnivore, herbivore, omnivore
+        public int weight;
+        public feedingStrategies feedingStrategy;
+        public enum feedingStrategies { carnivore, herbivore, omnivore  };  
 
         public Animal(string Name, int DateOfBirth)
         {
             this.name = Name;
             this.dateOfBirth = DateOfBirth;
-            this.color = "White";
-            this.feedingStrategy = "omnivore";
+            this.weight = 10;
+            this.feedingStrategy = feedingStrategies.omnivore;
         }
 
         public virtual void Move()
@@ -24,7 +25,7 @@ namespace Lab06
 
         public override string ToString()
         {
-            return "Животное: Name: " + this.name + ", Year: " + this.dateOfBirth + ", Color: " + this.color + ", Feeding Strategy: " + this.feedingStrategy;
+            return "Животное: Name: " + this.name + ", Year: " + this.dateOfBirth + ", Weight: " + this.weight + ", Feeding Strategy: " + this.feedingStrategy;
         }
     }
 }
