@@ -1,36 +1,35 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Lab05
 {
-    class Fish : Animal
+    abstract class Fish : Animal, IVitalActivity
     {
-        public Fish(string _name, int _year = 0, string _color = "Blue", string _feedingstrategy = "omnivore") : base(_name)
+        public Fish(string name, int year, string color = "Blue", string feedingstrategy = "omnivore") : base(name, year)
         {
-            this.DateOfBirth = _year;
-            this.Color = _color;
-            this.FeedingStrategy = _feedingstrategy;
+            this.color = color;
+            this.feedingStrategy = feedingstrategy;
         }
+
         public override void Move()
         {
             Console.WriteLine("Рыба плывет");
         }
-    }
 
-    class Shark : Fish
-    {
-        public Shark(string _name, int _year = 0, string _color = "Grey", string _feedingstrategy = "carnivore") : base(_name)
+        public void Eat()
         {
-            this.DateOfBirth = _year;
-            this.Color = _color;
-            this.FeedingStrategy = _feedingstrategy;
+            Console.WriteLine("Рыба ест");
         }
-        public override void Move()
+
+        public void Sleep()
         {
-            Console.WriteLine("Акула плывет");
+            Console.WriteLine("Рыба спит... ZzZ...");
         }
+
+        public override string ToString()
+        {
+            return "Рыба: Name: " + name + ", Year: " + dateOfBirth + ", Color: " + color + ", Feeding Strategy: " + feedingStrategy;
+        }
+
+        public abstract void VitalActivity();
     }
 }

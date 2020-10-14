@@ -2,9 +2,9 @@
 
 namespace Lab05
 {
-    class Bird : Animal
+    class Owl : Bird
     {
-        public Bird(string name, int year, string color = "Yellow", string feedingstrategy = "omnivore") : base(name, year)
+        public Owl(string name, int year, string color = "Grey", string feedingstrategy = "carnivore") : base(name, year)
         {
             this.color = color;
             this.feedingStrategy = feedingstrategy;
@@ -12,7 +12,7 @@ namespace Lab05
 
         public override void Move()
         {
-            Console.WriteLine("Птица летит");
+            Console.WriteLine("Сова летит");
         }
 
         public override string ToString()

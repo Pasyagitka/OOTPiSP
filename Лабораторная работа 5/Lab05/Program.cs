@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Lab05
 {
@@ -10,22 +6,34 @@ namespace Lab05
     {
         private static void Main(string[] args)
         {
-            Animal efowf = new Animal("Oleg");
-            efowf.ShowInfo(); efowf.Move();
-            Crocodile tom = new Crocodile("Tom", 2026);
-            tom.ShowInfo(); tom.Move();
+            Animal crocodile1 = new Crocodile("crocodile1", 2026);
+            Console.WriteLine(crocodile1); crocodile1.Move();
 
-            Lion a1 = new Lion("A1");
-            a1.ShowInfo(); a1.Move();
+            Lion lion1 = new Lion("lion1", 2010);
+            Console.WriteLine(lion1); lion1.Move();
+            Tiger tiger1 = new Tiger("tiger1", 2001);
+            Console.WriteLine(tiger1); tiger1.Move();
 
-            Tiger a2 = new Tiger("A2");
-            a2.ShowInfo(); a2.Move();
+            Shark shark1 = new Shark("shark1", 2014);
+            Console.WriteLine(shark1); shark1.Move();
+            ((IVitalActivity)shark1).Eat();
+            shark1.VitalActivity();
+            ((IVitalActivity)shark1).VitalActivity();
 
-            Fish a3 = new Fish("A3");
-            a3.ShowInfo(); a3.Move();
+            Owl owl1 = new Owl("owl1", 2003);
+            owl1.Move();
+            Console.WriteLine(owl1);
+            Parrot parrot1 = new Parrot("Гоша", 2020);
+            parrot1.Move();
+            Console.WriteLine(parrot1);
 
-            Shark a4 = new Shark("A3");
-            a4.ShowInfo(); a4.Move();
+            Console.WriteLine("-----------------Массив-----------------");
+            Printer a = new Printer();
+            Animal[] animals = new Animal[6] { crocodile1, lion1, tiger1, shark1, owl1, parrot1 };
+            for (int i = 0; i < animals.Length; i++)
+            {
+                a.iAmPrinting(animals[i]);
+            }
         }
     }
 }
