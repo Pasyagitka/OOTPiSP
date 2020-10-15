@@ -50,7 +50,8 @@ namespace Lab06
             Controller.SortByYear(zoo);
 
             Zoo zoo1 = new Zoo();
-           
+            Controller.FillFromFile(zoo1);
+            zoo1.ShowZoo();
         }
     }
 }

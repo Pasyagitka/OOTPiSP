@@ -78,14 +78,6 @@ namespace Lab06
 
                 }
             }
-           
-            string path2 = @"E:\3 семестр\ООТПиСП лабораторные\Лабораторная работа 6\File.json";
-            using (StreamReader sr1 = new StreamReader(path2))
-            {
-                string json = sr1.ReadToEnd();
-                Console.WriteLine(json);
-                json = JsonSerializer.Deserialize<json>(json);
-            }
         }
     }
 }
