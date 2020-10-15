@@ -2,7 +2,7 @@
 
 namespace Lab06
 {
-    class Program
+    internal class Program
     {
         private static void Main(string[] args)
         {
@@ -49,8 +49,12 @@ namespace Lab06
             Console.WriteLine("Количество хищных птиц в зоопарке: {0} ", Controller.PredatoryBirds(zoo));
             Controller.SortByYear(zoo);
 
+            Console.WriteLine("Из файла-------------------------------------------");
             Zoo zoo1 = new Zoo();
-           
+            Controller.FillFromFile(zoo1);
+            zoo1.ShowZoo();
+
+       
         }
     }
 }

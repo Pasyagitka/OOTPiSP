@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Runtime.CompilerServices;
-using System.Text.Json;
 
 namespace Lab06
 {
-
     //Создать Зоопарк. Найти средний вес животных заданного вида в зоопарке, количество хищных птиц, вывести всех животных отсортированных по году рождения.
     public static class Controller
     {
@@ -56,35 +52,24 @@ namespace Lab06
             Console.WriteLine("Отсортированный по дате рождения зоопарк: ");
             zoo.ShowZoo();
         }
-        
+
         public static void FillFromFile(Zoo zoo)
         {
-            string path1 = @"E:\3 семестр\ООТПиСП лабораторные\Лабораторная работа 6\File.txt";
-         
-            using (StreamReader sr = new StreamReader(path1, System.Text.Encoding.Default))
+            using (StreamReader sr = new StreamReader("../../../../file.txt", System.Text.Encoding.Default))
             {
                 string line;
                 while ((line = sr.ReadLine()) != null)
                 {
                     string[] parameters = line.Split(new char[] { ',', }, StringSplitOptions.RemoveEmptyEntries);
-                    if (parameters[0] == "lion")
+                    if (parameters[0] == "Lion")
                     {
-                        zoo.AddToZoo(new Lion(parameters[0], Convert.ToInt32(parameters[1]), Convert.ToInt32(parameters[2])));
+                        zoo.AddToZoo(new Lion(parameters[1], Convert.ToInt32(parameters[2]), Convert.ToInt32(parameters[3])));
                     }
-                    if (parameters[0] == "tiger")
+                    if (parameters[0] == "Tiger")
                     {
-                        zoo.AddToZoo(new Tiger(parameters[0], Convert.ToInt32(parameters[1]), Convert.ToInt32(parameters[2])));
+                        zoo.AddToZoo(new Tiger(parameters[1], Convert.ToInt32(parameters[2]), Convert.ToInt32(parameters[3])));
                     }
-
                 }
-            }
-           
-            string path2 = @"E:\3 семестр\ООТПиСП лабораторные\Лабораторная работа 6\File.json";
-            using (StreamReader sr1 = new StreamReader(path2))
-            {
-                string json = sr1.ReadToEnd();
-                Console.WriteLine(json);
-                json = JsonSerializer.Deserialize<json>(json);
             }
         }
     }

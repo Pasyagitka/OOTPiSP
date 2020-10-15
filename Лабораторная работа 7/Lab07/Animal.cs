@@ -2,13 +2,14 @@
 
 namespace Lab06
 {
-    public abstract class Animal 
+    public abstract class Animal
     {
         public string name;
         public int dateOfBirth;
         public int weight;
         public feedingStrategies feedingStrategy;
-        public enum feedingStrategies { carnivore, herbivore, omnivore  };  
+
+        public enum feedingStrategies { carnivore, herbivore, omnivore };
 
         public Animal(string Name, int DateOfBirth)
         {
@@ -17,6 +18,7 @@ namespace Lab06
             this.weight = 10;
             this.feedingStrategy = feedingStrategies.omnivore;
         }
+
         public virtual void Move()
         {
             Console.WriteLine("Животное двигается");
