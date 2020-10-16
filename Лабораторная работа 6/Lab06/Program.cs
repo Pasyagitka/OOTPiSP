@@ -49,6 +49,7 @@ namespace Lab06
             Console.WriteLine("Количество хищных птиц в зоопарке: {0} ", Controller.PredatoryBirds(zoo));
             Controller.SortByYear(zoo);
 
+            Console.WriteLine("Из файла________________");
             Zoo zoo1 = new Zoo();
             Controller.FillFromFile(zoo1);
             zoo1.ShowZoo();

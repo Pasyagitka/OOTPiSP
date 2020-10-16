@@ -67,12 +67,6 @@ namespace Lab04
             CurrentSize = 0;
         }
 
-        public int this[int index]
-        {
-            get { return Elements[index]; }
-            set { Elements[index] = value; }
-        }
-
         public static Stack operator +(Stack stack, int element)
         {
             stack.Push(element);
@@ -96,7 +90,7 @@ namespace Lab04
 
         public static Stack operator >(Stack stack1, Stack stack2)
         {
-            stack2 = stack1;
+            stack2 = (Stack)stack1.MemberwiseClone();
             int[] temp = new int[stack1.CurrentSize];
             for (int i = 0; i < stack1.CurrentSize; i++)
             {
@@ -114,9 +108,9 @@ namespace Lab04
 
         private class Owner
         {
-            public int ID;
-            public string Name;
-            public string Organization;
+            int ID;
+            string Name;
+            string Organization;
 
             public Owner()
             {

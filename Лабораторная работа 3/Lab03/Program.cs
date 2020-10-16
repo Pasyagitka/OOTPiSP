@@ -172,6 +172,7 @@ namespace Lab03
             Airline10.FlightInfo();
             //Airline10.DaysOfWeekGetSet = "Monday";
             Airline10.m_FlightNumber = 9999;
+            Airline10.m_Destination = 10;
             //Airline10.DestinationGetSet = "minsk";
             Airline10.FlightInfo();
 

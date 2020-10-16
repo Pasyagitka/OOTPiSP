@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Runtime.CompilerServices;
-using System.Text.Json;
 
 namespace Lab06
 {
@@ -59,7 +56,7 @@ namespace Lab06
         
         public static void FillFromFile(Zoo zoo)
         {
-            string path1 = @"E:\3 семестр\ООТПиСП лабораторные\Лабораторная работа 6\File.txt";
+            string path1 = @"G:\3 семестр\ООТПиСП лабораторные\Лабораторная работа 6\File.txt";
          
             using (StreamReader sr = new StreamReader(path1, System.Text.Encoding.Default))
             {
