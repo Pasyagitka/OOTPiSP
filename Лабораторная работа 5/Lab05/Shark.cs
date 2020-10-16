@@ -32,12 +32,12 @@ namespace Lab05
 
         public override void VitalActivity()
         {
-            Console.WriteLine("virtual activity in shark");
+            Console.WriteLine("vital activity in shark");
         }
 
         void IVitalActivity.VitalActivity()
         {
-            Console.WriteLine("virtual activity in interface in shark");
+            Console.WriteLine("vital activity in interface in shark");
         }
     }
 }

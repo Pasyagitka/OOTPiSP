@@ -22,7 +22,7 @@ namespace Lab05
 
         public override int GetHashCode()
         {
-            return base.GetHashCode();
+            return base.GetHashCode(); //как this только для базового всегда
         }
 
         public override bool Equals(object obj)

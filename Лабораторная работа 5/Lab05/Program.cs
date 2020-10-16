@@ -6,7 +6,7 @@ namespace Lab05
     {
         private static void Main(string[] args)
         {
-            Animal crocodile1 = new Crocodile("crocodile1", 2026);
+            Animal crocodile1 = new Crocodile("crocodile1", 2026); //через ссылку на абстрактный класс
             Console.WriteLine(crocodile1); crocodile1.Move();
 
             Lion lion1 = new Lion("lion1", 2010);
@@ -19,6 +19,8 @@ namespace Lab05
             ((IVitalActivity)shark1).Eat();
             shark1.VitalActivity();
             ((IVitalActivity)shark1).VitalActivity();
+            IVitalActivity shark11 = new Shark("shark1", 2014); //через интерфейс
+            shark11.VitalActivity();
 
             Owl owl1 = new Owl("owl1", 2003);
             owl1.Move();
