@@ -123,7 +123,7 @@ namespace Lab04
                 return "ID: " + this.ID + ", Name: " + this.Name + ", Organization: " + this.Organization;
             }
         }
-
+        
         private class Date
         {
             DateTime currentdate =  DateTime.Now;

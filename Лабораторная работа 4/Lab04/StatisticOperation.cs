@@ -30,10 +30,9 @@ namespace Lab04
         }
 
         public static float Average(this Stack stack)
-        {     
+        {
             return (float)StackSum(stack) / (float)stack.CurrentSize;
         }
-
         //public string[] Split (char[]? separator, int count, StringSplitOptions options);
         //RemoveEmptyEntries to omit empty array elements from the array returned; or None to include empty array elements in the array returned.
         public static int StringSentCount(this string currentstring)
