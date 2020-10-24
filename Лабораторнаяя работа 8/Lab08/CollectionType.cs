@@ -130,7 +130,7 @@ namespace Lab04
             }
         }
 
-        public void WriteToFile(string path = @"E:\3 семестр\ООТПиСП лабораторные\Лабораторная работа 8\Lab04\file.txt")
+        public void WriteToFile(string path = @"E:\3 семестр\ООТПиСП лабораторные\Лабораторнаяя работа 8\Lab08\File.txt")
         {
             StreamWriter writer = new StreamWriter(path);
             if (writer == null)

@@ -1,5 +1,5 @@
 ﻿using System;
-
+//null
 namespace Lab06
 {
     internal class Printer

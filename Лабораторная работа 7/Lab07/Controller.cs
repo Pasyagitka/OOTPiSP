@@ -1,6 +1,6 @@
 ﻿using System;
 using System.IO;
-
+//работа с файлами, деление на ноль
 namespace Lab06
 {
     //Создать Зоопарк. Найти средний вес животных заданного вида в зоопарке, количество хищных птиц, вывести всех животных отсортированных по году рождения.
@@ -18,7 +18,7 @@ namespace Lab06
                     counter++;
                 }
             }
-            Console.WriteLine("Средний вес животных вида {0} равен {1}", animalspecies, weight / counter);
+            Console.WriteLine("Средний вес животных вида {0} равен {1}", animalspecies, counter != 0 ? weight / counter : throw new ZeroException("Делить на 0 нельзя!"));
         }
 
         public static int PredatoryBirds(Zoo zoo)

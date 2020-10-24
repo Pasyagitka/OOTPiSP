@@ -23,7 +23,7 @@ namespace Lab04
             Console.WriteLine("Stack2");  Stack2.ShowStack();
             Console.WriteLine("Stack1");  Stack1.ShowStack();
             string String1 = "Предложение 1. Предложение 2. Предложение 3! Предложение 4?";
-            Console.WriteLine("Строка \"{0}\", \nколичество предложений в строке: {1}", String1, StatisticOperation.StringSentCount(String1));
+            Console.WriteLine("Строка \"{0}\", \nколичество предложений в строке: {1}", String1, String1.StringSentCount());
         }
     }
 }
