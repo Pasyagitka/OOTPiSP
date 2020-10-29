@@ -1,4 +1,6 @@
 ﻿using System;
+using Lab07;
+
 //null
 namespace Lab06
 {

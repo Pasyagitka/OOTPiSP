@@ -1,12 +1,14 @@
 ﻿using System;
 using System.IO;
+using Lab07;
+
 //работа с файлами, деление на ноль
 namespace Lab06
 {
     //Создать Зоопарк. Найти средний вес животных заданного вида в зоопарке, количество хищных птиц, вывести всех животных отсортированных по году рождения.
     public static class Controller
     {
-        public static void AverageWeight(Zoo zoo, string animalspecies)
+        public static void AverageWeight(Zoo zoo, string animalspecies="Lion")
         {
             int weight = 0;
             int counter = 0;

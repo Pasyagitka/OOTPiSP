@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Lab07;
 
 namespace Lab06
 {
@@ -7,13 +8,10 @@ namespace Lab06
     {
         private static void Main(string[] args)
         {
-            try
-            {
                 Animal crocodile1 = new Crocodile("crocodile", 2026);
                 Console.WriteLine(crocodile1); crocodile1.Move();
 
                 Lion lion1 = new Lion("lion", 2010);
-                Lion lion2 = new Lion("lion", 2017, -7);
                 Console.WriteLine(lion1); lion1.Move();
                 Tiger tiger1 = new Tiger("tiger", 2001);
                 Console.WriteLine(tiger1); tiger1.Move();
@@ -42,7 +40,6 @@ namespace Lab06
                 Zoo zoo = new Zoo();
                 zoo.AddToZoo(crocodile1);
                 zoo.AddToZoo(lion1);
-                zoo.AddToZoo(lion2);
                 zoo.AddToZoo(tiger1);
                 zoo.AddToZoo(shark1);
                 zoo.AddToZoo(owl1);
@@ -52,31 +49,68 @@ namespace Lab06
                 Console.WriteLine("Количество хищных птиц в зоопарке: {0} ", Controller.PredatoryBirds(zoo));
                 Controller.SortByYear(zoo);
 
+            try
+            {
                 Console.WriteLine("Из файла-------------------------------------------");
                 Zoo zoo1 = new Zoo();
                 Controller.FillFromFile(zoo1);
                 zoo1.ShowZoo();
 
-
-
-
-
-            }
+                Lion lion2 = new Lion("lion", 2017, -7); 
+            }            
             catch (WrongWeightException e)
             {
-                Console.Write("WrongWeightException: " + e.Message + ", метод вызвавший ошибку: " + e.StackTrace);
+                Console.WriteLine("-----------------------------WrongWeightException: " + e.Message + ", метод вызвавший исключение: " + e.TargetSite + ", имена и сигнатуры методов, вызов которых стал источником исключения: " +
+                        e.StackTrace);
+            }
+            try
+            {
+                FileStream newFile = new FileStream("aaa.txt", FileMode.Open); 
             }
             catch (IOException)
             {
-                Console.Write("IOException: " );
+                Console.WriteLine("-----------------------------IOException: Не удалось открыть файл ");
+            }
+            try  
+            {
+                Zoo zoo1 = new Zoo();
+                Controller.AverageWeight(zoo);
+            }
+            catch (ZeroException e)
+            {
+                Console.WriteLine("-----------------------------ZeroException: " + e.Message + ", метод вызвавший исключение: " + e.TargetSite + ", имена и сигнатуры методов, вызов которых стал источником исключения: " +
+                        e.StackTrace + ", helplink: " + e.HelpLink);
+                 // throw; снова будет исключение, уже необработанное 
+            }
+            try
+            {
+                if (!File.Exists("aaa.txt"))    
+                    throw new FileExistsException();
+            }
+            catch (FileExistsException e)
+            {
+                Console.WriteLine("-----------------------------FileExistsException: " + e.Message + ", метод вызвавший исключение: " + e.TargetSite + ", имена и сигнатуры методов, вызов которых стал источником исключения: " +e.StackTrace + ", helplink: " + e.HelpLink);
+            }
+            try
+            {
+                Byte bbb = 99;
+                bbb = checked((byte)(bbb + 9999999));
+                Console.WriteLine("\nВызов неопознанного исключения");
+                throw new Exception();
+            }
+            catch (Exception e) when (e.GetType() != typeof(System.OverflowException))
+            {
+                Console.WriteLine("Вызван общий обработчик исключений (кроме OverflowException)");
             }
             catch
             {
-                Console.Write("Исключение ");
+                Console.WriteLine("Вызван универсальный обработчик исключений");
             }
             finally
             {
-                Console.WriteLine("Finally");
+                Console.WriteLine("_____________________________________________");
+                Console.WriteLine("КОНЕЦ");
+                Console.WriteLine("Finally выполняется всегда, кроме StackOverFlowException, System.Exit(0)");
             }
         }
     }

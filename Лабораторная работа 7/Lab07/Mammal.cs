@@ -1,4 +1,5 @@
 ﻿using System;
+using Lab07;
 
 namespace Lab06
 {
@@ -6,6 +7,8 @@ namespace Lab06
     {
         public Mammal(string name, int year, int weight = 40) : base(name, year)
         {
+            if (weight < 0)
+                throw new WrongWeightException("Вес не может быть отрицательным!");
             this.weight = weight;
             this.feedingStrategy = feedingStrategies.omnivore;
         }

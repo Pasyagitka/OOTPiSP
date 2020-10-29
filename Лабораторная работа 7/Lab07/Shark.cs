@@ -6,6 +6,8 @@ namespace Lab06
     {
         public Shark(string name, int year, int weight = 50) : base(name, year)
         {
+            if (weight < 0)
+                throw new WrongWeightException("Вес не может быть отрицательным!");
             this.weight = 50;
             this.feedingStrategy = feedingStrategies.carnivore;
         }

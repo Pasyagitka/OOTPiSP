@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Lab06
+namespace Lab07
 {
     public abstract class Animal
     {

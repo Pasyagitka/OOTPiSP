@@ -6,6 +6,8 @@ namespace Lab06
     {
         public Tiger(string name, int year, int weight = 20) : base(name, year)
         {
+            if (weight < 0)
+                throw new WrongWeightException("Вес не может быть отрицательным!");
             this.weight = weight;
             this.feedingStrategy = feedingStrategies.carnivore;
         }
