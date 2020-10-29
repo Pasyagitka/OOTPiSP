@@ -8,6 +8,11 @@ namespace Lab06
     {
         private static void Main(string[] args)
         {
+                Logger.ConsoleLogger ConsLog = new Logger.ConsoleLogger();
+                Logger.FileLogger FileLog = new Logger.FileLogger();
+                if (FileLog.OpenLogFile())
+                    FileLog.GetLog("Создан файл протокола", Logger.RecordTypes.Information);
+
                 Animal crocodile1 = new Crocodile("crocodile", 2026);
                 Console.WriteLine(crocodile1); crocodile1.Move();
 
@@ -55,7 +60,7 @@ namespace Lab06
             //аварийному завершению программы с указанием места обнаружения некорректных данных.
             try
             {
-                Console.WriteLine("Из файла-------------------------------------------");
+                ConsLog.GetLog("Из файла-------------------------------------------", Logger.RecordTypes.Message);
                 Zoo zoo1 = new Zoo();
                 Controller.FillFromFile(zoo1);
                 zoo1.ShowZoo();
@@ -64,8 +69,10 @@ namespace Lab06
             }            
             catch (WrongWeightException e)
             {
-                Console.WriteLine("-----------------------------WrongWeightException: " + e.Message + ", метод вызвавший исключение: " + e.TargetSite + ", имена и сигнатуры методов, вызов которых стал источником исключения: " +
-                        e.StackTrace);
+                //сюда Console
+                Console.WriteLine(e);
+                FileLog.GetLog(e);
+                ConsLog.GetLog("-----------------------------WrongWeightException: ", Logger.RecordTypes.Exception);
             }
             try
             {
@@ -73,7 +80,8 @@ namespace Lab06
             }
             catch (IOException)
             {
-                Console.WriteLine("-----------------------------IOException: Не удалось открыть файл ");
+                ConsLog.GetLog("-----------------------------IOException: Не удалось открыть файл", Logger.RecordTypes.Exception);
+                FileLog.GetLog("IOException: Не удалось открыть файл", Logger.RecordTypes.Exception);
             }
             try  
             {
@@ -82,39 +90,49 @@ namespace Lab06
             }
             catch (ZeroException e)
             {
-                Console.WriteLine("-----------------------------ZeroException: " + e.Message + ", метод вызвавший исключение: " + e.TargetSite + ", имена и сигнатуры методов, вызов которых стал источником исключения: " +
-                        e.StackTrace + ", helplink: " + e.HelpLink);
-                 // throw; снова будет исключение, уже необработанное 
+                //сюда Console
+                Console.WriteLine(e);
+                FileLog.GetLog(e);
+                // throw; снова будет исключение, уже необработанное 
             }
             try
             {
-                if (!File.Exists("aaa.txt"))    
-                    throw new FileExistsException();
+                throw new FileExistsException();
             }
             catch (FileExistsException e)
             {
-                Console.WriteLine("-----------------------------FileExistsException: " + e.Message + ", метод вызвавший исключение: " + e.TargetSite + ", имена и сигнатуры методов, вызов которых стал источником исключения: " +e.StackTrace + ", helplink: " + e.HelpLink);
+                ConsLog.GetLog(e);
+                FileLog.GetLog(e);
+                ConsLog.GetLog("Информация", Logger.RecordTypes.Information);
+                FileLog.GetLog("Сообщение....", Logger.RecordTypes.Message);
+                Console.WriteLine(e);
             }
             try
             {
                 Byte bbb = 99;
                 bbb = checked((byte)(bbb + 9999999));
-                Console.WriteLine("\nВызов неопознанного исключения");
+                ConsLog.GetLog("\nВызов неопознанного исключения", Logger.RecordTypes.Exception);
+                FileLog.GetLog("\nВызов неопознанного исключения", Logger.RecordTypes.Exception);
                 throw new Exception();
             }
             catch (Exception e) when (e.GetType() != typeof(System.OverflowException))
             {
-                Console.WriteLine("Вызван общий обработчик исключений (кроме OverflowException)");
+                ConsLog.GetLog("Вызван общий обработчик исключений (кроме OverflowException)", Logger.RecordTypes.Exception);
+                FileLog.GetLog("Вызван общий обработчик исключений(кроме OverflowException)", Logger.RecordTypes.Exception);
             }
             catch
             {
-                Console.WriteLine("Вызван универсальный обработчик исключений");
+                ConsLog.GetLog("Вызван универсальный обработчик исключений", Logger.RecordTypes.Exception);
+                FileLog.GetLog("Вызван универсальный обработчик исключений", Logger.RecordTypes.Exception);
             }
             finally
             {
                 Console.WriteLine("_____________________________________________");
                 Console.WriteLine("КОНЕЦ");
                 Console.WriteLine("Finally выполняется всегда, кроме StackOverFlowException, System.Exit(0)");
+
+                FileLog.GetLog("Файл протокола закрывается...", Logger.RecordTypes.Information);
+                FileLog.CloseLogFile();
             }
         }
     }
