@@ -3,7 +3,7 @@ using System.IO;
 
 namespace Lab04
 {
-    public class CollectionType<T> : ICollectionType<T> where T : new() //ограничение на конструктор, Требование предоставить конструктор без параметров
+    public class Stack<T> : IStack<T> where T : new() //ограничение на конструктор, Требование предоставить конструктор без параметров
     {
         public T[] Elements;
         public int CurrentSize;
@@ -11,7 +11,7 @@ namespace Lab04
         Owner owner;
         Date DateOfCreation;
 
-        public CollectionType()
+        public Stack()
         {
             this.Elements = new T[StackMaxSize];
             this.owner = new Owner();
@@ -63,30 +63,30 @@ namespace Lab04
             CurrentSize = 0;
         }
 
-        public static CollectionType<T> operator +(CollectionType<T> stack, T element)
+        public static Stack<T> operator +(Stack<T> stack, T element)
         {
             stack.Push(element);
             return stack;
         }
 
-        public static CollectionType<T> operator --(CollectionType<T> stack)
+        public static Stack<T> operator --(Stack<T> stack)
         {
             stack.Pop();
             return stack;
         }
 
-        public static bool operator true(CollectionType<T> stack)
+        public static bool operator true(Stack<T> stack)
         {
             return stack.CurrentSize == 0;
         }
-        public static bool operator false(CollectionType<T> stack)
+        public static bool operator false(Stack<T> stack)
         {
             return stack.CurrentSize != 0;
         }
 
-        public static CollectionType<T> operator >(CollectionType<T> stack1, CollectionType<T> stack2)
+        public static Stack<T> operator >(Stack<T> stack1, Stack<T> stack2)
         {
-            stack2 = (CollectionType<T>)stack1.MemberwiseClone();
+            stack2 = (Stack<T>)stack1.MemberwiseClone();
             T[] temp = new T[stack1.CurrentSize];
             for (int i = 0; i < stack1.CurrentSize; i++)
             {
@@ -97,7 +97,7 @@ namespace Lab04
             return stack2;
         }
 
-        public static CollectionType<T> operator <(CollectionType<T> stack1, CollectionType<T> stack2)
+        public static Stack<T> operator <(Stack<T> stack1, Stack<T> stack2)
         {
             return stack1;
         }
@@ -130,17 +130,13 @@ namespace Lab04
             }
         }
 
-        public void WriteToFile(string path = @"E:\3 семестр\ООТПиСП лабораторные\Лабораторнаяя работа 8\Lab08\File.txt")
+        public void WriteToFile(StreamWriter writer)
         {
-            StreamWriter writer = new StreamWriter(path);
-            if (writer == null)
-                throw new Exception("Ошибка открытия файла");
+            writer.WriteLine("Стек " + (this.Elements).GetType());
             for (int i = 0; i < CurrentSize; i++)
-                writer.Write(Elements[i]);
-            writer.Close();
+            {
+              writer.WriteLine(Elements[i]);
+            }
         }
     }
-
-
-
 }

@@ -36,8 +36,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CollectionType.cs" />
-    <Compile Include="ICollectionType.cs" />
+    <Compile Include="IStack.cs" />
+    <Compile Include="Stack.cs" />
     <Compile Include="Parrot.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="StatisticOperation.cs" />

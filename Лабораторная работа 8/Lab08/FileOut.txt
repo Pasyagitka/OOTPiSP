@@ -1,0 +1,32 @@
+Стек System.Int32[]
+2
+3
+4
+5
+6
+9
+111
+Стек System.Int32[]
+2
+3
+4
+5
+6
+9
+111
+125
+1
+436
+67867
+Стек Lab04.Parrot[]
+Попугай: Name: Parrot1, Year: 2000, Color: Green, Feeding Strategy: carnivore
+Попугай: Name: Popug, Year: 2000, Color: Yellow, Feeding Strategy: carnivore
+Попугай: Name: Пипиг, Year: 2020, Color: Yellow, Feeding Strategy: carnivore
+Стек System.Single[]
+8,65
+Стек System.Boolean[]
+True
+False
+True
+False
+False
