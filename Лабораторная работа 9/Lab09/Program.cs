@@ -10,7 +10,7 @@ namespace Lab09
     {
         public void main()
         {
-
+            Game Game1 = new Game();
         }
     }
 }
