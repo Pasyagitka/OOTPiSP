@@ -8,7 +8,7 @@ namespace Lab06
         public int dateOfBirth;
         public int weight;
         public feedingStrategies feedingStrategy;
-        public enum feedingStrategies { carnivore, herbivore, omnivore  };  
+        public enum feedingStrategies { carnivore, herbivore, omnivore  }
 
         public Animal(string Name, int DateOfBirth)
         {

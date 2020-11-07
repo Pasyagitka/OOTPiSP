@@ -23,8 +23,6 @@ namespace Lab06
         {
             List.Add(exemplar);
         }
-
-
         public void RemoveFromZoo(Animal exemplar)
         {
             List.Remove(exemplar);

@@ -4,25 +4,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+//add dmg nm
 namespace Lab09
 {
     class Game
     {
-        public int health;
-        public int damage;
+        public int health = 2000;
+        public int damage = 150;
 
         public void Attack()
         {
             Console.WriteLine("Атака");
+            this.AttackEvent?.Invoke();
         }
-        public void Heal()
+        public void Heal(int heal)
         {
             Console.WriteLine("Исцеление");
+            if (HealEvent != null) health += this.HealEvent(heal);
         }
 
-        delegate void AttackHandler(string message);
-        event AttackHandler AttackEvent;
-        delegate void HealHandler(string message);
-        event HealHandler HealEvent;
+        public delegate void AttackHandler();
+        public event AttackHandler AttackEvent;
+        public delegate int HealHandler(int heal);
+        public event HealHandler HealEvent;
     }
 }

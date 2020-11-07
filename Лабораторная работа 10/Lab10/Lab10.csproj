@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{58526C80-B6E0-458A-B2D7-AA88CABBAE04}</ProjectGuid>
+    <ProjectGuid>{5E125CAD-D9A3-4D42-AAE6-420CEBCBA18C}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Lab05</RootNamespace>
-    <AssemblyName>Lab05</AssemblyName>
+    <RootNamespace>Lab10</RootNamespace>
+    <AssemblyName>Lab10</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -34,30 +34,10 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Animal.cs" />
-    <Compile Include="Bird.cs" />
-    <Compile Include="Controller.cs" />
-    <Compile Include="Crocodile.cs" />
-    <Compile Include="Fish.cs" />
-    <Compile Include="IVitalActivity.cs" />
-    <Compile Include="Lion.cs" />
-    <Compile Include="Mammal.cs" />
-    <Compile Include="Owl.cs" />
-    <Compile Include="OwlStruct.cs" />
-    <Compile Include="Parrot.cs" />
-    <Compile Include="Printer.cs" />
+    <Compile Include="Plant.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="Shark.cs" />
-    <Compile Include="Tiger.cs" />
-    <Compile Include="Zoo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
