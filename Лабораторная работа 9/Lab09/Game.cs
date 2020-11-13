@@ -1,31 +1,35 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-//add dmg nm
 namespace Lab09
 {
-    class Game
+    public class Game
     {
-        public int health = 2000;
-        public int damage = 150;
-
-        public void Attack()
-        {
-            Console.WriteLine("Атака");
-            this.AttackEvent?.Invoke();
-        }
-        public void Heal(int heal)
-        {
-            Console.WriteLine("Исцеление");
-            if (HealEvent != null) health += this.HealEvent(heal);
-        }
+        private int health = 2000;
+        public const int damage = 150;
+        private const int maxhealth = 2000;
 
         public delegate void AttackHandler();
         public event AttackHandler AttackEvent;
-        public delegate int HealHandler(int heal);
+
+        public delegate void HealHandler(int heal);
         public event HealHandler HealEvent;
+
+        public void Damage()
+        {
+            this.health = GetDamage(this.health, damage);
+            AttackEvent?.Invoke();
+        }
+        public void Heal(int heal)
+        {
+            this.health = GetHeal(this.health, heal);
+            HealEvent?.Invoke(heal);
+        }
+        public void Status()
+        {
+            Console.WriteLine($"Текущее здоровье: {health}");
+        }
+        O GetDamage = (health, damage) => health -= damage;
+        O GetHeal = (health, heal) => health + heal > maxhealth ? health = maxhealth : health += heal;
     }
+    delegate int O(int x, int y);
 }
