@@ -3,7 +3,6 @@ using System.IO;
 
 namespace Lab06
 {
-    //добавить позиции?
     public class WrongWeightException : Exception
     {
         public WrongWeightException(string message) : base(message) { }
@@ -17,7 +16,7 @@ namespace Lab06
     {
         public ZeroException(string message = "Делить на ноль нельзя!") : base(message)
         {
-            this.HelpLink = "https://vk.com/maxicids";
+            this.HelpLink = "https://github.com/pasyagitka";
         }
         public override string ToString()
         {

@@ -13,7 +13,6 @@ namespace Lab07
             string FilePath = "../../../log.txt";
             public bool OpenLogFile()
             {
-
                 sw = new StreamWriter(FilePath, false, System.Text.Encoding.Default);
                 if (sw != null)    
                     return true;
