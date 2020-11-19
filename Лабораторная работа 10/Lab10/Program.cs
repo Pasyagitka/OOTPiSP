@@ -3,13 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Text;
 
 namespace Lab10
 {
-    public class Concert : IList<Concert> //Реализовать интерфейс
+    public class Concert : IList<string> 
     {
-        // соберите объекты класса в коллекцию
-        public IList<Concert> ConcertList = new List<Concert>();
+        public IList<string> ArtistsList = new List<string>();
         public string Name { get; set; }
         public Concert(string name)
         {
@@ -18,48 +18,51 @@ namespace Lab10
 
         public override string ToString()
         {
-            return "Концерт: \"" + Name + "\"";
+           string buff = default;
+           foreach (string artist in ArtistsList)
+                buff += artist + " ";
+            return "Концерт: \"" + Name + "\"" + ", список артистов: " + buff;
         }
 
-        public int Count { get { return ConcertList.Count; } }
-        public bool IsReadOnly { get { return ConcertList.IsReadOnly; } }
-        public Concert this[int index] { get { return ConcertList[index]; } set  { ConcertList[index] = value; } }
-        public int IndexOf(Concert item)
+        public int Count { get { return ArtistsList.Count; } }
+        public bool IsReadOnly { get { return ArtistsList.IsReadOnly; } }
+        public string this[int index] { get { return ArtistsList[index]; } set  { ArtistsList[index] = value; } }
+        public int IndexOf(string item)
         {
-            return ConcertList.IndexOf(item);
+            return ArtistsList.IndexOf(item);
         }
-        public void Insert(int index, Concert item)
+        public void Insert(int index, string item)
         {
-            ConcertList.Insert(index, item);
+            ArtistsList.Insert(index, item);
         }
         public void RemoveAt(int index)
         {
-            ConcertList.RemoveAt(index);
+            ArtistsList.RemoveAt(index);
         }
-        public void Add(Concert item)
+        public void Add(string item)
         {
-            ConcertList.Add(item);
+            ArtistsList.Add(item);
         }
         public void Clear()
         {
-            ConcertList.Clear();
+            ArtistsList.Clear();
             Console.WriteLine("Список очищен.");
         }
-        public bool Contains(Concert item)
+        public bool Contains(string item)
         {
-            return ConcertList.Contains(item);
+            return ArtistsList.Contains(item);
         }
-        public void CopyTo(Concert[] array, int arrayIndex)
+        public void CopyTo(string[] array, int arrayIndex)
         {
-            ConcertList.CopyTo(array, arrayIndex);
+            ArtistsList.CopyTo(array, arrayIndex);
         }
-        public bool Remove(Concert item)
+        public bool Remove(string item)
         {
-           return ConcertList.Remove(item);
+           return ArtistsList.Remove(item);
         }
-        public IEnumerator<Concert> GetEnumerator()
+        public IEnumerator<string> GetEnumerator()
         {
-            return ConcertList.GetEnumerator(); 
+            return ArtistsList.GetEnumerator(); 
         }
         IEnumerator IEnumerable.GetEnumerator()    
         {
@@ -70,16 +73,39 @@ namespace Lab10
     {
         static void Main(string[] args)
         {
-            Concert 
-            //удалить N последовательных элементов
+            const int N = 3; int i = 0;
             Concert conc1 = new Concert("Концерт1"), conc2 = new Concert("Концерт2"), conc3 = new Concert("Концерт3"), conc4 = new Concert("Концерт4");
+            conc1.Add("Артист1");
+            conc1.Add("Артист2");
+            conc1.Add("Артист3");
+            conc1.Add("Артист4");
+            conc1.Remove("Артист3");
+            Console.WriteLine(conc1);
+            Dictionary<int, Concert> concertcollection = new Dictionary<int, Concert>()
+            {
+                [155] = conc1, [12] = conc2, [468] = conc3, [95] = conc4,
+            };
+            concertcollection.Add(3698, new Concert("Концерт347"));
+            concertcollection.Remove(468);
+            if (concertcollection.ContainsKey(458)) Console.WriteLine("Концерт с таким ключом присутсвует в словаре"); else Console.WriteLine("Концерт с таким ключом отсутсвует в словаре");
+            if (concertcollection.ContainsKey(3698)) Console.WriteLine("Концерт с таким ключом присутсвует в словаре"); else Console.WriteLine("Концерт с таким ключом отсутсвует в словаре");
+            foreach (KeyValuePair<int, Concert> keyValue in concertcollection)
+                Console.WriteLine(keyValue.Key + " - " + keyValue.Value);
+
+
             Dictionary<int, string> s = new Dictionary<int, string>
             {
                 [1] = "Mogilev",  [7] = "Minsk", [2] = "Vitebsk",   [4] = "Brest",  [5] = "Gomel",  [3] = "Grodno"
             };
             s[4] = "Moscow";
             s.Add(10, "Magadan");
-
+            foreach (KeyValuePair<int, string> keyValue in s)
+                Console.WriteLine(keyValue.Key + " - " + keyValue.Value);
+            foreach (int  k in s.Keys)
+            {
+                if (i++ == N) break;
+                s.Remove(k); 
+            }
             foreach (KeyValuePair<int, string> keyValue in s)
                 Console.WriteLine(keyValue.Key + " - " + keyValue.Value);
             Queue<string> q = new Queue<string>();
