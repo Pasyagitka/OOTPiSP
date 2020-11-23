@@ -79,14 +79,14 @@ namespace Lab09
             string testString1 = "aaaaaaaaaaaaaaaaaaaaaaaaaaaa";
             string testString2 = "рр!!22?рррр:::р а кк ! нннг   бб.!";
 
-            Action<string, string> editaction;//void, 0-16арг - такая перегрузка
-                                              //Predicate обязан принимать один арг(тип данимически) - возвращает булевый
+            Action<string, string> editaction;
+                                              
             Console.WriteLine($"\nИсходная строка: {testString1}");
             editaction = AddSymbols;
             editaction(testString1, "!!!");
             editaction(testString2, "!!!");
 
-            Func<string, string> editfunc;  //один тип, до 16 других, последний - возвращаемое значение, фанк войд это экшн
+            Func<string, string> editfunc; 
             Console.WriteLine($"\nИсходная строка: {testString2}");
             editfunc = RemovePunctuationMarks;
             editfunc += ToUpperCase;

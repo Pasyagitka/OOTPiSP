@@ -113,21 +113,21 @@ namespace Lab10
                 q.Enqueue(v);
             foreach (string p in q)
                 Console.WriteLine(p);
-            if (q.Contains("Vitebsk")) Console.WriteLine("Элемент найден"); else Console.WriteLine("Элемент не найден");
+            if (q.Contains("Gomel")) Console.WriteLine("Элемент найден"); else Console.WriteLine("Элемент не найден");
             if (q.Contains("Mir")) Console.WriteLine("Элемент найден"); else Console.WriteLine("Элемент не найден");
 
 
             ObservableCollection<Concert> observableconcert = new ObservableCollection<Concert>() {conc1, conc2, conc3};
-            void ChangeColl(object sender, NotifyCollectionChangedEventArgs a)
+            void ChangeColl(object sender, NotifyCollectionChangedEventArgs e)
             {
-                if (a.Action == NotifyCollectionChangedAction.Add)
+                if (e.Action == NotifyCollectionChangedAction.Add)
                 {
-                    Concert newconc = a.NewItems[0] as Concert;
+                    Concert newconc = e.NewItems[0] as Concert;
                     Console.WriteLine("Добавлен новый объект: " + newconc.Name);
                 }
-                if (a.Action == NotifyCollectionChangedAction.Remove)
+                if (e.Action == NotifyCollectionChangedAction.Remove)
                 {
-                    Concert oldconc = a.OldItems[0] as Concert;
+                    Concert oldconc = e.OldItems[0] as Concert;
                     Console.WriteLine("Удален объект: " + oldconc.Name);
                 }
             }

@@ -2,27 +2,29 @@
 
 namespace Lab11
 {
-    class Places
+    internal class Places
     {
         public string city;
         public string country;
+
         public Places(string a, string b)
         {
-            city = a; 
+            city = a;
             country = b;
         }
     }
+
     public class Airline
     {
         public string Destination;
-        int FlightNumber;
+        public int FlightNumber;
         public string AircraftType;
         public DateTime DepartureTime;
-        string DaysOfWeek;
+        private string DaysOfWeek;
         public static int NumberOfObjects = 0;
         public readonly int ID;
-        const string DefaultDaysOfWeek = "Unknown";
-        const int DefaultFlightNumber = 0;
+        private const string DefaultDaysOfWeek = "Unknown";
+        private const int DefaultFlightNumber = 0;
 
         public string m_Destination
         {
@@ -95,12 +97,10 @@ namespace Lab11
         {
             if (flightnumber >= 0) this.FlightNumber = flightnumber;
             else this.FlightNumber = DefaultFlightNumber;
-            Console.WriteLine("Private constructor");
         }
 
         static Airline()
         {
-            Console.WriteLine("Static constructor");
         }
 
         public void FlightInfo()
@@ -149,5 +149,5 @@ namespace Lab11
         {
             return "Flight number: " + FlightNumber + ", to: " + Destination + ", aircraft type: " + AircraftType + ", departure time: " + DepartureTime + ", day: " + DaysOfWeek + ", ID: " + ID;
         }
-    } 
+    }
 }

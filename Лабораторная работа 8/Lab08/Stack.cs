@@ -31,7 +31,7 @@ namespace Lab04
             if (StackSize() == 0)
                 throw new Exception("Stack is empty");
             T element = Elements[--CurrentSize];
-            Elements[CurrentSize] = default(T); // сбрасываем ссылку
+            Elements[CurrentSize] = default(T); 
             return element;
         }
 

@@ -7,7 +7,6 @@ namespace Lab04
     {
         private static void Main(string[] args)
         {
-            
             Stack<int> Stack1 = new Stack<int>();
             Stack1.Push(2); Stack1 = Stack1 + 5 + 6 + 3 + 9 + 4 + 111 + 2834;
             Stack1--;
