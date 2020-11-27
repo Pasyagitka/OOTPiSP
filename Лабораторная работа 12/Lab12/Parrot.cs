@@ -9,7 +9,7 @@ namespace Lab04
         public string color;
         public string feedingstrategy;
 
-        public Parrot() 
+        public Parrot()
         {
             this.name = "Parrot1";
             this.dateOfBirth = 2000;
@@ -24,6 +24,8 @@ namespace Lab04
             this.color = color;
             this.feedingstrategy = feedingstrategy;
         }
+
+        public string m_color { get;  set; }
 
         public void Move()
         {
