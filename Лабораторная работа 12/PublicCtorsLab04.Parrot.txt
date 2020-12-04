@@ -1,3 +1,0 @@
-Public конструкторы есть
-Void .ctor()
-Void .ctor(System.String, Int32, System.String, System.String)

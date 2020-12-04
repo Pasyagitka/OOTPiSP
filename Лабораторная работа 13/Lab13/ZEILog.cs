@@ -1,39 +1,54 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
+using System.Linq;
 
 namespace Lab13
 {
-    class ZEILog
+    public class ZEILog
     {
-        //static public StreamWriter logfile;
+        string path = "..//..//..//../ZEILog.txt";
+       
+        public ZEILog()
+        {
+            using (var sw = new StreamWriter(path))
+            {
+                sw.WriteLine("Лог создан : " + DateTime.Now);
+            }
 
-        //static ZEILog()
-        //{
-        //    using (logfile = new StreamWriter("", false))
-        //        logfile.WriteLine("\tLOG FILE");
-        //}
-
-        //static public void WriteLog(string action, string fileName = "", string path = "")
-        //{
-        //    using (logfile = new StreamWriter("", true))
-        //    {
-        //        DateTime time = new DateTime();
-        //        time = DateTime.Now;
-        //        logfile.WriteLine("------------------------------");
-        //        logfile.WriteLine($"Action: {action}");
-
-        //        if (fileName.Length != 0)
-        //            logfile.WriteLine($"File name: {fileName}");
-
-        //        if (path.Length != 0)
-        //            logfile.WriteLine($"Path: {path}");
-
-        //        logfile.WriteLine($"Time: {time.ToLocalTime()}");
-        //        logfile.WriteLine("------------------------------");
-        //    }
-        //}
-
+        }
+        public void WriteAction(string action = "")
+        {
+            if (action == "")
+                throw new Exception("Неверное действие");
+            using (StreamWriter sw = new StreamWriter(path, true))
+            {
+                sw.WriteLine(DateTime.Now + " : " + action);
+            }
+        }
+        public void ReadFromLog()
+        {
+            Console.WriteLine("\nЧтение из файла ZEILog");
+            using (StreamReader sr = new StreamReader(path))
+            {
+                string text = sr.ReadToEnd();
+                Console.WriteLine(text);
+            }
+        }
+        public void FindInLog(string item)
+        {
+            Console.WriteLine("Поиск в логе:  " + item);
+            new List<string>(File.ReadAllLines(path)).Where(l => l.Contains(item)).ToList().ForEach(Console.WriteLine);
+        }
+        public int CountLog()
+        {
+            return File.ReadAllLines(path).ToList().Count;
+        }
+        public void DeleteInfo()
+        {
+            var lines = File.ReadAllLines(path).ToList();
+            lines.RemoveRange(5, 10);
+            File.WriteAllLines(path, lines);
+        }
     }
 }

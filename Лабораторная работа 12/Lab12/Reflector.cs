@@ -2,8 +2,6 @@
 using System.Reflection;
 using System.IO;
 using System.Collections.Generic;
-using System.Linq;
-//yield return IEnumerable
 
 namespace Lab12
 {
@@ -11,7 +9,7 @@ namespace Lab12
     {
         public static void GetAssemblyInfo(string classname)
         {
-            Type classType = Type.GetType(classname, true, true);
+            Type classType = Type.GetType(classname);
             using (StreamWriter file = new StreamWriter("..//..//..//..//AssemblyInfo" + classname + ".txt"))
             {
                 file.WriteLine($"Информация о классе {classname}");
@@ -20,7 +18,7 @@ namespace Lab12
         }
         public static void GetPublicCtors(string classname)
         {
-            Type classType = Type.GetType(classname, true, true);
+            Type classType = Type.GetType(classname);
             using (StreamWriter file = new StreamWriter("..//..//..//..//PublicCtors" + classname + ".txt"))
             {
                 if (classType.GetConstructors(BindingFlags.Public | BindingFlags.Instance).Length > 0)
@@ -36,7 +34,7 @@ namespace Lab12
         //c. извлекает все общедоступные публичные методы класса  (возвращает IEnumerable<string>);
         public static IEnumerable<string> GetPublicMethods(string classname)
         {
-            Type classType = Type.GetType(classname, true, true);
+            Type classType = Type.GetType(classname);
             foreach (var method in classType.GetMethods(BindingFlags.Public | BindingFlags.Instance))
                 yield return method.Name;
         }
@@ -44,7 +42,7 @@ namespace Lab12
         public static IEnumerable<string> GetInfoFieldProperty(string classname)
         {
             List<string> outputstrings = new List<string>();
-            Type classType = Type.GetType(classname, true, true);
+            Type classType = Type.GetType(classname);
 
             outputstrings.Add($"Количество полей: {classType.GetFields().Length}");
             foreach (MemberInfo item in classType.GetFields())
@@ -66,7 +64,7 @@ namespace Lab12
         public static IEnumerable<string> GetInterface(string classname)
         {
             List<string> outputstrings = new List<string>();
-            Type classType = Type.GetType(classname, true, true);
+            Type classType = Type.GetType(classname);
 
             outputstrings.Add($"Количество: {classType.GetInterfaces().Length}");
 
@@ -85,7 +83,7 @@ namespace Lab12
         public static void GetMethodByType(string classname, Type parametertype)
         {
             List<string> outputstrings = new List<string>();
-            Type classType = Type.GetType(classname, true, true);
+            Type classType = Type.GetType(classname);
 
             foreach (var mi in classType.GetMethods())
             {
