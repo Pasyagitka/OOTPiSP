@@ -49,7 +49,8 @@ namespace Lab13
             var filetxt = Directory.GetFiles(@"G:\3 семестр\ООТПиСП лабораторные\Лабораторная работа 13", "*.txt");
             foreach (string f in filetxt)
             {
-                string fName = f.Substring(@"G:\3 семестр\ООТПиСП лабораторные\Лабораторная работа 13".Length + 1);
+                string fName = Path.GetFileName(f);
+               // string fName = f.Substring(@"G:\3 семестр\ООТПиСП лабораторные\Лабораторная работа 13".Length + 1);
                 File.Copy(f, Path.Combine(@"G:\3 семестр\ООТПиСП лабораторные\Лабораторная работа 13\ZEIFiles", fName), true); // перезаписать
             }
             //переместить ZEIFiles в ZEIInspect
