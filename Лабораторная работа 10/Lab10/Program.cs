@@ -3,11 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using System.Text;
 
 namespace Lab10
 {
-    public class Concert : IList<string> 
+    public class Concert : IList<string>
     {
         public IList<string> ArtistsList = new List<string>();
         public string Name { get; set; }
@@ -101,6 +100,7 @@ namespace Lab10
             s.Add(10, "Magadan");
             foreach (KeyValuePair<int, string> keyValue in s)
                 Console.WriteLine(keyValue.Key + " - " + keyValue.Value);
+            //удаляю N=3 первых
             foreach (int  k in s.Keys)
             {
                 if (i++ == N) break;
@@ -108,6 +108,7 @@ namespace Lab10
             }
             foreach (KeyValuePair<int, string> keyValue in s)
                 Console.WriteLine(keyValue.Key + " - " + keyValue.Value);
+
             Queue<string> q = new Queue<string>();
             foreach  (string v in s.Values)
                 q.Enqueue(v);

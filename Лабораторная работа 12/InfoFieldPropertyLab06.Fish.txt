@@ -1,0 +1,5 @@
+Количество полей: 3
+ Name: name
+ Name: dateOfBirth
+ Name: color
+Количество свойств: 0

@@ -1,0 +1,2 @@
+Информация о классе Lab06.Fish
+Информация о сборке, в которой определен класс: Lab12, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null

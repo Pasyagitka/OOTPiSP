@@ -3,6 +3,7 @@ using System.Reflection;
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
+//yield return IEnumerable
 
 namespace Lab12
 {
@@ -11,7 +12,7 @@ namespace Lab12
         public static void GetAssemblyInfo(string classname)
         {
             Type classType = Type.GetType(classname, true, true);
-            using (StreamWriter file = new StreamWriter("..//..//..//AssemblyInfo.txt"))
+            using (StreamWriter file = new StreamWriter("..//..//..//..//AssemblyInfo" + classname + ".txt"))
             {
                 file.WriteLine($"Информация о классе {classname}");
                 file.WriteLine($"Информация о сборке, в которой определен класс: {classType.Assembly.FullName}");
@@ -20,7 +21,7 @@ namespace Lab12
         public static void GetPublicCtors(string classname)
         {
             Type classType = Type.GetType(classname, true, true);
-            using (StreamWriter file = new StreamWriter("..//..//..//PublicCtors.txt"))
+            using (StreamWriter file = new StreamWriter("..//..//..//..//PublicCtors" + classname + ".txt"))
             {
                 if (classType.GetConstructors(BindingFlags.Public | BindingFlags.Instance).Length > 0)
                 {
@@ -32,15 +33,12 @@ namespace Lab12
                 else file.WriteLine($"Public конструкторов нет");
             }
         }
+        //c. извлекает все общедоступные публичные методы класса  (возвращает IEnumerable<string>);
         public static IEnumerable<string> GetPublicMethods(string classname)
         {
-            List<string> outputstrings = new List<string>();
             Type classType = Type.GetType(classname, true, true);
-
             foreach (var method in classType.GetMethods(BindingFlags.Public | BindingFlags.Instance))
-                outputstrings.Add(method.Name);
-
-            return outputstrings;
+                yield return method.Name;
         }
         //d. получает информацию о полях и свойствах класса(возвращает IEnumerable<string>);
         public static IEnumerable<string> GetInfoFieldProperty(string classname)
@@ -48,17 +46,15 @@ namespace Lab12
             List<string> outputstrings = new List<string>();
             Type classType = Type.GetType(classname, true, true);
 
-            outputstrings.Add("\tПоля");
-            outputstrings.Add($"Количество: {classType.GetFields().Length}");
+            outputstrings.Add($"Количество полей: {classType.GetFields().Length}");
             foreach (MemberInfo item in classType.GetFields())
-                outputstrings.Add("Type:" + item.MemberType + " Name: " + item.Name);
+                outputstrings.Add(" Name: " + item.Name);
 
-            outputstrings.Add("\tСвойства");
-            outputstrings.Add($"Количество: {classType.GetProperties().Length}");
+            outputstrings.Add($"Количество свойств: {classType.GetProperties().Length}");
             foreach (MemberInfo item in classType.GetProperties())
-                outputstrings.Add("Type:" + item.MemberType + " Name:" + item.Name);
+                outputstrings.Add(" Name:" + item.Name);
 
-            using (StreamWriter file = new StreamWriter("..//..//..//InfoFieldProperty.txt"))
+            using (StreamWriter file = new StreamWriter("..//..//..//..//InfoFieldProperty" + classname + ".txt"))
             {
                 foreach (var i in outputstrings)
                     file.WriteLine(i);
@@ -72,13 +68,12 @@ namespace Lab12
             List<string> outputstrings = new List<string>();
             Type classType = Type.GetType(classname, true, true);
 
-            outputstrings.Add("\tИнтерфейсы");
             outputstrings.Add($"Количество: {classType.GetInterfaces().Length}");
 
             foreach (var item in classType.GetInterfaces())
-                outputstrings.Add("Type:" + item.MemberType + " Name:" + item.Name);
+                outputstrings.Add(item.Name);
 
-            using (StreamWriter file = new StreamWriter("..//..//..//Interface.txt"))
+            using (StreamWriter file = new StreamWriter("..//..//..//..//Interface.txt" + classname + ".txt"))
             {
                 foreach (var i in outputstrings)
                     file.WriteLine(i);
@@ -92,13 +87,21 @@ namespace Lab12
             List<string> outputstrings = new List<string>();
             Type classType = Type.GetType(classname, true, true);
 
-            var result = parametertype.GetMethods().Where(a => a.GetParameters().Where(t => t.ParameterType == parametertype).Count() != 0);
-            outputstrings.Add($"\tВсе методы с типом параметра {parametertype.Name}: ");
-
-            foreach (MethodInfo item in result)
-                outputstrings.Add(item.Name);
-            using (StreamWriter file = new StreamWriter("..//..//..//MethodByType.txt"))
+            foreach (var mi in classType.GetMethods())
             {
+                foreach (ParameterInfo pi in mi.GetParameters())
+                {
+                    if (pi.ParameterType == parametertype)
+                    {
+                        outputstrings.Add(" - " + mi.Name);
+                        break;
+                    }
+                }
+            }
+          
+            using (StreamWriter file = new StreamWriter("..//..//..//..//MethodByType" + classname + ".txt"))
+            {
+                file.WriteLine("\tВсе методы с типом параметра: " + parametertype);
                 foreach (var i in outputstrings)
                     file.WriteLine(i);
             }
@@ -112,11 +115,16 @@ namespace Lab12
             Type classtype = Type.GetType(classname);
 
             var a = Activator.CreateInstance(classtype);
-            string[] parameters = File.ReadAllLines(@"..//..//..//ParametersForInvokeMethod.txt");
+            string[] parameters = File.ReadAllLines("..//..//..//..//ParametersForInvokeMethod." + classname + ".txt");
             MethodInfo method = classtype.GetMethod(methodname);
 
             Console.WriteLine(method.Invoke(a, parameters));
 
+        }
+
+        public static object Create(Type typename)
+        {
+            return Activator.CreateInstance(typename);
         }
     }
 }

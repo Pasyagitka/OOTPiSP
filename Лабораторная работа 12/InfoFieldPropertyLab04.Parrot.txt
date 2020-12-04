@@ -1,0 +1,7 @@
+Количество полей: 4
+ Name: name
+ Name: dateOfBirth
+ Name: color
+ Name: feedingstrategy
+Количество свойств: 1
+ Name:m_color

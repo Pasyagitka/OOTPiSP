@@ -32,9 +32,15 @@ namespace Lab04
             Console.WriteLine("Попугай летит");
         }
 
-        public  override string ToString()
+        public override string ToString()
         {
             return "Попугай: Name: " + this.name + ", Year: " + this.dateOfBirth + ", Color: " + this.color + ", Feeding Strategy: " + this.feedingstrategy;
+        }
+
+        public void Eat(string e1, string e2)
+        {
+            Console.WriteLine($"Попугай съел {e1}") ;
+            Console.WriteLine($"Попугай съел {e2}");
         }
     }
 }
