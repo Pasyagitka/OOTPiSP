@@ -12,7 +12,7 @@ namespace Lab13
             log.WriteAction("Вызван метод ListOfFilesAndDirs класса ZEIFileManager");
             DirectoryInfo dir = new DirectoryInfo(path);
             Console.WriteLine("\nСписок папок заданного диска: ");
-            log.WriteAction("\nСписок папок заданного диска: ");
+            log.WriteAction("\n\tСписок папок заданного диска: ");
 
             foreach (var item in dir.GetDirectories())
             {
@@ -20,7 +20,7 @@ namespace Lab13
                 log.WriteAction(item.Name);
             }
             Console.WriteLine("Список файлов заданного диска: ");
-            log.WriteAction("\nСписок файлов заданного диска: ");
+            log.WriteAction("\n\tСписок файлов заданного диска: ");
 
             foreach (var item in dir.GetFiles())
             {
@@ -28,11 +28,13 @@ namespace Lab13
                 log.WriteAction(item.Name);
             }
             //Создать директорий ZEIInspect
+            log.WriteAction("Создания директория ZEIInspect");
             DirectoryInfo directory = new DirectoryInfo(@"G:\3 семестр\ООТПиСП лабораторные\Лабораторная работа 13");
             directory.CreateSubdirectory("ZEIInspect");
             if (!directory.Exists) directory.Create();
 
             //создать текстовый файл xxxdirinfo.txt и сохранить туда информацию.
+            log.WriteAction("Создания текстового файла ZEIdirinfo.txt");
             FileInfo file = new FileInfo("..//..//..//..//ZEIdirinfo.txt");
             using (StreamWriter fs = new StreamWriter(file.FullName))
             {
@@ -43,6 +45,7 @@ namespace Lab13
             file.Delete();
 
             //Создать директорий ZEIFiles. Скопировать в него все файлы с заданным расширением из заданного пользователем директория.
+            log.WriteAction("Создания директория ZEIFiles с файлами txt");
             DirectoryInfo directory2 = new DirectoryInfo(@"G:\3 семестр\ООТПиСП лабораторные\Лабораторная работа 13");
             directory.CreateSubdirectory("ZEIFiles");
             if (!directory.Exists) directory.Create();
@@ -50,10 +53,10 @@ namespace Lab13
             foreach (string f in filetxt)
             {
                 string fName = Path.GetFileName(f);
-               // string fName = f.Substring(@"G:\3 семестр\ООТПиСП лабораторные\Лабораторная работа 13".Length + 1);
                 File.Copy(f, Path.Combine(@"G:\3 семестр\ООТПиСП лабораторные\Лабораторная работа 13\ZEIFiles", fName), true); // перезаписать
             }
             //переместить ZEIFiles в ZEIInspect
+            log.WriteAction("Перемещение ZEIFiles в ZEIInspect");
             string sourcedirectorypath = @"G:\3 семестр\ООТПиСП лабораторные\Лабораторная работа 13\ZEIFiles";
             string destdirectorypath = @"G:\3 семестр\ООТПиСП лабораторные\Лабораторная работа 13\ZEIInspect\ZEIFiles";
             if (sourcedirectorypath == destdirectorypath)

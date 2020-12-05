@@ -6,6 +6,7 @@ namespace Lab13
     {
         static void Main(string[] args)
         {
+
             ZEILog Log = new ZEILog();
             ZEIDiskInfo d1 = new ZEIDiskInfo();
             try
