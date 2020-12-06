@@ -8,7 +8,7 @@ using System.Xml.Serialization;
 
 namespace Lab14
 {
-    class Serialize
+    static class Serialize
     {
         public static void BinarySerialization(object cl, string filename)
         {
