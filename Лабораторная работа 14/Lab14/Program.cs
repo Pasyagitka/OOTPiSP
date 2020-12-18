@@ -17,7 +17,7 @@ namespace Lab14
             Tiger tiger1 = new Tiger("Тигр", 2005);
             Tiger tiger2 = new Tiger("Ргит", 5002);
 
-            Console.WriteLine("\tТигр, Binary:");
+            Console.WriteLine("\tТигр, Binary:"); //всё
             Serialize.BinarySerialization(tiger1, "tiger1");
             Serialize.BinarySerialization(tiger2, "tiger2");
             var tiger3 = Serialize.BinaryDeserialization("tiger1");
@@ -53,7 +53,7 @@ namespace Lab14
             }
             using (FileStream fs = new FileStream("..//..//..//..//Tiger1.json", FileMode.OpenOrCreate))
             {
-                Tiger newtiger = (Tiger)jsonFormatter.ReadObject(fs);
+                Tiger newtiger = jsonFormatter.ReadObject(fs) as Tiger;
                 Console.WriteLine(newtiger.ToString());
             }
 
@@ -91,7 +91,7 @@ namespace Lab14
                 }
             }
 
-
+            //XPath представляет язык запросов в XML. Он позволяет выбирать элементы, соответствующие определенному селектору.
             Console.WriteLine("\tИспользуя XPath напишите два селектора для вашего XML документа");
             XmlDocument xDoc = new XmlDocument();
             xDoc.Load("..//..//..//..//Tigers.xml");
@@ -101,11 +101,13 @@ namespace Lab14
             if (childnode != null)
                 Console.WriteLine(childnode.OuterXml);
 
+            //выбор в документе всех узлов с именем "dateOfBirth", которые находятся в элементах "Tiger"
             XmlNodeList childnode2 = xRoot.SelectNodes("//Tiger/dateOfBirth");
             foreach (XmlNode n in childnode2)
                 Console.WriteLine(n.InnerText);
-
-
+            
+            //LINQ to XML
+            //Функциональное конструирование?
             Console.WriteLine("Используя Linq to XML (или Linq to JSON) создайте новый xml (json) - документ и напишите несколько запросов");
             XDocument xdoc = new XDocument(new XElement("Animals",
             new XElement("TIGER",
@@ -124,7 +126,7 @@ namespace Lab14
                 new XElement("color", "БЕЛЫЙ"),
                 new XElement("age", "10"))));
                     xdoc.Save("..//..//..//..//LTXTigerLion.xml");
-
+   
             IEnumerable<XElement> elements = xdoc.Descendants("LION").Where(e => ((string)e.Element("name")) == "Златик");
             foreach (var e in elements)
                 Console.WriteLine(e);

@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace Lab14
 {
     [Serializable]
-    [DataContract]
+    [DataContract] //коллекция - CollectionDataContract
     public class Animal 
     {
         [DataMember]

@@ -1,10 +1,6 @@
 ﻿using System.IO;
-using System.Runtime.Serialization.Json;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization.Formatters.Soap;
-using System;
-using System.Text.Json;
-using System.Xml.Serialization;
 
 namespace Lab14
 {
