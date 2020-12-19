@@ -1,0 +1,9 @@
+Ex4_Odd = 1
+Ex4_Even  = 2
+Ex4_Odd = 3
+Ex4_Even  = 4
+Ex4_Odd = 1
+Ex4_Even  = 2
+Ex4_Odd = 1
+Ex4_Even  = 2
+Ex4_Odd = 3

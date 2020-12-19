@@ -9,25 +9,68 @@ namespace Lab15
     class Program
     {
         public static int x;
+        static Mutex mut = new Mutex();
 
-        public static void Even(object n)
+        public static void Even(object n) //четные
         {
             x = 2;
             for (int i = x; i <= (int)n; i = i + 2)
             {
                 Thread.Sleep(500);
-                Console.WriteLine(Thread.CurrentThread.Name + " --- x = " + i);
+                Console.WriteLine(Thread.CurrentThread.Name + " = " + i);
                 using (StreamWriter sw = new StreamWriter("../../../ex4numbers.txt", true))
                 {
-                    sw.WriteLine(Thread.CurrentThread.Name + " --- x = " + i);
+                    sw.WriteLine(Thread.CurrentThread.Name + "  = " + i);
                 }
                 Thread.Sleep(1000);
             }
         }
-        //public static bool IsOdd(int a)
-        //{
-        //    return (a % 2) != 0;
-        //}
+        public static void Odd(object n) //нечетные
+        {
+            x = 1;
+            for (int i = x; i <= (int)n; i = i + 2)
+            {
+                Thread.Sleep(500);
+                Console.WriteLine(Thread.CurrentThread.Name + " = " + i);
+                using (StreamWriter sw = new StreamWriter("../../../ex4numbers.txt", true))
+                {
+                    sw.WriteLine(Thread.CurrentThread.Name + " = " + i);
+                }
+                Thread.Sleep(1000);
+            }
+        }
+        public static void Even_2(object n)
+        {
+            mut.WaitOne();
+            x = 2;
+            for (int i = x; i <= (int)n; i = i + 2)
+            {
+                Thread.Sleep(500);
+                Console.WriteLine(Thread.CurrentThread.Name + " = " + i);
+                using (StreamWriter sw = new StreamWriter("../../../ex4numbers2.txt", true))
+                {
+                    sw.WriteLine(Thread.CurrentThread.Name + " = " + i);
+                }
+                Thread.Sleep(1000);
+            }
+            mut.ReleaseMutex();
+        }
+        public static void Odd_2(object n)
+        {
+            mut.WaitOne();
+            x = 1;
+            for (int i = x; i <= (int)n; i = i + 2)
+            {
+                Thread.Sleep(500);
+                Console.WriteLine(Thread.CurrentThread.Name + "  = " + i);
+                using (StreamWriter sw = new StreamWriter("../../../ex4numbers2.txt", true))
+                {
+                    sw.WriteLine(Thread.CurrentThread.Name + " = " + i);
+                }
+                Thread.Sleep(1000);
+            }
+            mut.ReleaseMutex();
+        }
         public static bool IsPrimeNumber(int n)
         {
             var result = true;
@@ -106,10 +149,42 @@ namespace Lab15
             mythread.Start(n);
 
 
-            Console.WriteLine("Создайте два потока. Первый выводит четные числа, второй нечетные до n и записывают их в общий файл и на консоль.");
+            Console.WriteLine("Задание 4. Создайте два потока. Первый выводит четные числа, второй нечетные до n и записывают их в общий файл и на консоль.");
+            Thread mythread4E = new Thread(new ParameterizedThreadStart(Even));
+            mythread4E.Name = "Ex4_Even";
             
+            Thread mythread4O = new Thread(new ParameterizedThreadStart(Odd));
+            mythread4O.Name = "Ex4_Odd";
+
+            //mythread4O.Start(n);
+            //Thread.Sleep(500);
+            //mythread4E.Start(n);
 
 
+            Thread mythread4E2 = new Thread(new ParameterizedThreadStart(Even_2));
+            mythread4E2.Name = "Ex4_Even2";
+
+            Thread mythread4O2 = new Thread(new ParameterizedThreadStart(Odd_2));
+            mythread4O2.Name = "Ex4_Odd2";
+
+            //Thread.Sleep(10000);
+            //mythread4O2.Start(n);
+            //mythread4E2.Start(n);
+
+            //Thread.Sleep(1000);
+            int num = 0;         // устанавливаем метод обратного вызова
+            TimerCallback tm = new TimerCallback(Count);       // создаем таймер
+            Timer timer = new Timer(tm, num, 0, 2000);//num null
+            Console.ReadLine();
+        }
+
+        public static void Count(object obj)
+        {
+            int x = (int)obj;
+            for (int i = 1; i < 5; i++, x++)
+            {
+                Console.WriteLine($"{x}");
+            }
         }
     }
 }
