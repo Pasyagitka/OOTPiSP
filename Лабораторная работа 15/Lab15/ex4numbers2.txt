@@ -1,9 +1,0 @@
-Ex4_Odd2 = 1
-Ex4_Odd2 = 3
-Ex4_Even2 = 2
-Ex4_Even2 = 4
-Ex4_Even2 = 2
-Ex4_Odd2 = 1
-Ex4_Odd2 = 1
-Ex4_Odd2 = 3
-Ex4_Even2 = 2

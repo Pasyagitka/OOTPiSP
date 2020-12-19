@@ -41,7 +41,7 @@ namespace Lab15
         }
         public static void Even_2(object n)
         {
-            mut.WaitOne();
+            mut.WaitOne(); //приостанавливает выполнение потока до тех пор, пока не будет получен мьютекс mutexObj.
             x = 2;
             for (int i = x; i <= (int)n; i = i + 2)
             {
@@ -53,7 +53,7 @@ namespace Lab15
                 }
                 Thread.Sleep(1000);
             }
-            mut.ReleaseMutex();
+            mut.ReleaseMutex(); //После выполнения всех действий, когда мьютекс больше не нужен, поток освобождает его с помощью метода mutexObj.ReleaseMutex()
         }
         public static void Odd_2(object n)
         {
@@ -129,7 +129,6 @@ namespace Lab15
             {
                 Console.WriteLine(a.GetName().Name);
             }
-
             try
             {
                 AppDomain newdomain = AppDomain.CreateDomain("NEWDOMAIN");
@@ -143,10 +142,17 @@ namespace Lab15
 
             Console.WriteLine("Задание 3");
             var n = Convert.ToInt32(Console.ReadLine());
-            Thread mythread = new Thread(new ParameterizedThreadStart(Numbers));
+            Thread mythread = new Thread(new ParameterizedThreadStart(Numbers)); //передает ему данные в виде объекта при запуске
             mythread.Name = "Ex3";
-            mythread.Priority = ThreadPriority.Highest;
+            mythread.Priority = ThreadPriority.Highest; //Lowest BelowNormal Normal AboveNormal Highest
             mythread.Start(n);
+
+
+            //int num = 0;         // устанавливаем метод обратного вызова
+            //TimerCallback tm = new TimerCallback(Count);       // создаем таймер
+            //Timer timer = new Timer(tm, num, 0, 2000);//num null
+            //объект делегата TimerCallback; объект, передаваемый в качестве параметра в метод Count; количество миллисекунд, через которое таймер будет запускаться;
+            //интервал;
 
 
             Console.WriteLine("Задание 4. Создайте два потока. Первый выводит четные числа, второй нечетные до n и записывают их в общий файл и на консоль.");
@@ -156,9 +162,9 @@ namespace Lab15
             Thread mythread4O = new Thread(new ParameterizedThreadStart(Odd));
             mythread4O.Name = "Ex4_Odd";
 
-            //mythread4O.Start(n);
-            //Thread.Sleep(500);
-            //mythread4E.Start(n);
+            mythread4O.Start(n);
+            Thread.Sleep(500);
+            mythread4E.Start(n);
 
 
             Thread mythread4E2 = new Thread(new ParameterizedThreadStart(Even_2));
@@ -167,14 +173,10 @@ namespace Lab15
             Thread mythread4O2 = new Thread(new ParameterizedThreadStart(Odd_2));
             mythread4O2.Name = "Ex4_Odd2";
 
-            //Thread.Sleep(10000);
-            //mythread4O2.Start(n);
-            //mythread4E2.Start(n);
+            Thread.Sleep(10000);
+            mythread4O2.Start(n);
+            mythread4E2.Start(n);
 
-            //Thread.Sleep(1000);
-            int num = 0;         // устанавливаем метод обратного вызова
-            TimerCallback tm = new TimerCallback(Count);       // создаем таймер
-            Timer timer = new Timer(tm, num, 0, 2000);//num null
             Console.ReadLine();
         }
 
