@@ -8,14 +8,12 @@ namespace Lab13
     public class ZEILog
     {
         string path = "..//..//..//../ZEILog.txt";
-       
         public ZEILog()
         {
             using (var sw = new StreamWriter(path))
             {
                 sw.WriteLine("Лог создан : " + DateTime.Now);
             }
-
         }
         public void WriteAction(string action = "")
         {
